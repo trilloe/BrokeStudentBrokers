@@ -33,8 +33,8 @@ class _HomeState extends State<Home> {
         bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        backgroundColor: Color(0xFF92FF9A),
+        child: Icon(Icons.power_settings_new_outlined),
+        backgroundColor: Color(0xFF73FC7D),
         onPressed: () {},
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -47,9 +47,10 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
+                // mainAxisAlignment: MainAxisAlignment,
                 children: [
                   MaterialButton(
-                    minWidth: 40,
+                    minWidth: 100,
                     onPressed: () {
                       setState(() {
                         currentScreen = Dashboard();
@@ -60,20 +61,22 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.dashboard,
-                          color: currentTab == 0 ? Colors.blue : Colors.grey,
+                          Icons.home_filled,
+                          color: currentTab == 0
+                              ? Color(0xFF73FC7D)
+                              : Colors.white,
                         ),
-                        Text(
-                          'Dashboard',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 0 ? Colors.blue : Colors.grey),
-                        )
+                        // Text(
+                        //   'Dashboard',
+                        //   style: TextStyle(
+                        //       color:
+                        //           currentTab == 0 ? Colors.blue : Colors.grey),
+                        // )
                       ],
                     ),
                   ),
                   MaterialButton(
-                    minWidth: 40,
+                    minWidth: 100,
                     onPressed: () {
                       setState(() {
                         currentScreen = Chat();
@@ -84,15 +87,17 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.chat,
-                          color: currentTab == 1 ? Colors.blue : Colors.grey,
+                          Icons.explore,
+                          color: currentTab == 1
+                              ? Color(0xFF73FC7D)
+                              : Colors.white,
                         ),
-                        Text(
-                          'Chats',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 1 ? Colors.blue : Colors.grey),
-                        )
+                        // Text(
+                        //   'Chats',
+                        //   style: TextStyle(
+                        //       color:
+                        //           currentTab == 1 ? Colors.blue : Colors.grey),
+                        // )
                       ],
                     ),
                   ),
@@ -101,7 +106,7 @@ class _HomeState extends State<Home> {
               Row(
                 children: [
                   MaterialButton(
-                    minWidth: 40,
+                    minWidth: 100,
                     onPressed: () {
                       setState(() {
                         currentScreen = Profile();
@@ -112,20 +117,22 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.person,
-                          color: currentTab == 2 ? Colors.blue : Colors.grey,
+                          Icons.menu_rounded,
+                          color: currentTab == 2
+                              ? Color(0xFF73FC7D)
+                              : Colors.white,
                         ),
-                        Text(
-                          'Profile',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 2 ? Colors.blue : Colors.grey),
-                        )
+                        // Text(
+                        //   'Profile',
+                        //   style: TextStyle(
+                        //       color:
+                        //           currentTab == 2 ? Colors.blue : Colors.grey),
+                        // )
                       ],
                     ),
                   ),
                   MaterialButton(
-                    minWidth: 40,
+                    minWidth: 100,
                     onPressed: () {
                       setState(() {
                         currentScreen = Settings();
@@ -136,15 +143,17 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.settings,
-                          color: currentTab == 3 ? Colors.blue : Colors.grey,
+                          Icons.remove_red_eye_outlined,
+                          color: currentTab == 3
+                              ? Color(0xFF73FC7D)
+                              : Colors.white,
                         ),
-                        Text(
-                          'Settings',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 3 ? Colors.blue : Colors.grey),
-                        )
+                        // Text(
+                        //   'Settings',
+                        //   style: TextStyle(
+                        //       color:
+                        //           currentTab == 3 ? Colors.blue : Colors.grey),
+                        // )
                       ],
                     ),
                   )

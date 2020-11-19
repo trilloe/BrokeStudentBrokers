@@ -18,8 +18,10 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       darkTheme: ThemeData(
-        brightness: Brightness.dark,
-      ),
+          brightness: Brightness.dark,
+          primaryColor: Colors.black,
+          scaffoldBackgroundColor: Colors.black,
+          bottomAppBarColor: Color(0xFF202020)),
       themeMode: ThemeMode.dark,
       home: Home(),
     );
