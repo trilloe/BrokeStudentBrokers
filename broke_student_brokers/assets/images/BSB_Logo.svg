@@ -1,9 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="36" viewBox="0 0 128 36">
   <g id="Group_1" data-name="Group 1" transform="translate(-632 -500.64)" style="isolation: isolate">
     <text id="Broke" transform="translate(658 512.64)" fill="#fff" font-size="13" font-family="Gotham-Light, Gotham" font-weight="300"><tspan x="-23.92" y="0">BROKE</tspan></text>
-    <text id="Student_" data-name="Student
-" transform="translate(728 512.64)" fill="#fff" font-size="13" font-family="Gotham-Light, Gotham" font-weight="300"><tspan x="-32" y="0">STUDENT</tspan><tspan x="0" y="14"></tspan></text>
-    <path id="Icon_material-money-off" data-name="Icon material-money-off" d="M10.786,6.67c.99,0,1.358.473,1.391,1.168h1.23a2.218,2.218,0,0,0-1.786-2.12V4.5H9.951V5.7a3.3,3.3,0,0,0-.823.3l.818.818A2.182,2.182,0,0,1,10.786,6.67ZM6.8,5.09,6.09,5.8,8,7.71C8,8.868,8.872,9.5,10.18,9.886l1.953,1.953a1.54,1.54,0,0,1-1.346.506c-1.146,0-1.6-.512-1.658-1.168H7.9a2.331,2.331,0,0,0,2.048,2.131v1.207h1.669v-1.2a2.784,2.784,0,0,0,1.363-.623l1.235,1.235.707-.707Z" transform="translate(679.096 497.831)" fill="#fff"/>
+    <path id="Icon_material-money-off" data-name="Icon material-money-off" d="M10.786,6.67c.99,0,1.358.473,1.391,1.168h1.23a2.218,2.218,0,0,0-1.786-2.12V4.5H9.951V5.7a3.3,3.3,0,0,0-.823.3l.818.818A2.182,2.182,0,0,1,10.786,6.67ZM6.8,5.09,6.09,5.8,8,7.71C8,8.868,8.872,9.5,10.18,9.886l1.953,1.953a1.54,1.54,0,0,1-1.346.506c-1.146,0-1.6-.512-1.658-1.168H7.9a2.331,2.331,0,0,0,2.048,2.131v1.207h1.669v-1.2a2.784,2.784,0,0,0,1.363-.623l1.235,1.235.707-.707Z" transform="translate(673 498.5)" fill="#fff"/>
+    <text id="Student_" data-name="Student" transform="translate(721 512.64)" fill="#fff" font-size="13" font-family="Gotham-Light, Gotham" font-weight="300"><tspan x="-32" y="0">STUDENT</tspan><tspan x="0" y="14"></tspan></text>
     <text id="BROKERS" transform="translate(696 532.64)" fill="#fff" font-size="25" font-family="Gotham-Bold, Gotham" font-weight="700" opacity="0.9"><tspan x="-63.225" y="0">BROKERS</tspan></text>
   </g>
 </svg>
