@@ -3,6 +3,7 @@ import 'package:broke_student_brokers/pages/dashboard.dart';
 import 'package:broke_student_brokers/pages/profile.dart';
 import 'package:broke_student_brokers/pages/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -24,18 +25,24 @@ class _HomeState extends State<Home> {
   Widget currentScreen = Dashboard();
 
   final PageStorageBucket bucket = PageStorageBucket();
+  bool bot_on = true; // stores state of bot, fetch from cloud
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(height: 80),
       body: PageStorage(
         child: currentScreen,
         bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.power_settings_new_outlined),
-        backgroundColor: Color(0xFF73FC7D),
-        onPressed: () {},
+        backgroundColor: bot_on ? Color(0xFF73FC7D) : Colors.red,
+        onPressed: () {
+          setState(() {
+            bot_on = !bot_on;
+          });
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
@@ -165,4 +172,58 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+}
+
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final double height;
+
+  const CustomAppBar({Key key, @required this.height}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          // color: Colors.grey[300],
+          child: Padding(
+            padding: EdgeInsets.only(top: 35),
+            child: Container(
+              height: this.height,
+              // color: Colors.blue,
+              padding: EdgeInsets.only(left: 5, right: 5),
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: IconButton(
+                        alignment: Alignment.centerLeft,
+                        icon: SvgPicture.asset('assets/images/BSB_Logo.svg'),
+                        onPressed: () {},
+                      ),
+                    ),
+                    // Expanded(
+                    //   child: Container(
+                    //     color: Colors.white,
+                    //     child: TextField(
+                    //       decoration: InputDecoration(
+                    //         hintText: "Search",
+                    //         contentPadding: EdgeInsets.all(10),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    IconButton(
+                      icon: Icon(Icons.account_circle),
+                      onPressed: () => null,
+                    ),
+                  ]),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(height);
 }
