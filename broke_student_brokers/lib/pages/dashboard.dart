@@ -41,6 +41,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   children: [
                     Expanded(
                       child: IconButton(
+                        alignment: Alignment.bottomLeft,
                         icon: SvgPicture.asset('assets/images/BSB_Logo.svg'),
                         onPressed: () {},
                       ),
