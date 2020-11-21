@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "828353899766",
+    "firebase_url": "https://brokestudentbrokers.firebaseio.com",
+    "project_id": "brokestudentbrokers",
+    "storage_bucket": "brokestudentbrokers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828353899766:android:27eb37dd93584aaa9a50d7",
+        "android_client_info": {
+          "package_name": "com.example.broke_student_brokers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "828353899766-00bdtolbphdg88r5k9ves79ngepsibj8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUaUjlZJVinIVtESbVAoo9N-vjhkd86rQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "828353899766-00bdtolbphdg88r5k9ves79ngepsibj8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
