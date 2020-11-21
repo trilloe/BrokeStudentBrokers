@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'dart:math';
+import 'package:fl_chart/fl_chart.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -149,10 +150,15 @@ class HoldingList extends StatelessWidget {
                   ),
                   // TODO: Add graph
                   Expanded(
-                    child: Container(
-                        alignment: Alignment.center,
-                        child: Text('add graph here')),
-                  ),
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: AspectRatio(
+                              aspectRatio: 3.5,
+                              child: Container(
+                                margin:
+                                    EdgeInsets.fromLTRB(24.0, 4.0, 24.0, 4.0),
+                                child: LineChart(mainData()),
+                              )))),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -191,6 +197,60 @@ class HoldingList extends StatelessWidget {
         },
         itemCount: ticker.length,
       ),
+    );
+  }
+
+  LineChartData mainData() {
+    return LineChartData(
+      gridData: FlGridData(
+        show: false,
+      ),
+      extraLinesData: ExtraLinesData(horizontalLines: [
+        HorizontalLine(
+          y: 0,
+          color: Colors.white.withOpacity(0.4),
+          strokeWidth: 1,
+          dashArray: [10, 3],
+        ),
+      ]),
+      titlesData: FlTitlesData(
+        show: false,
+      ),
+      borderData: FlBorderData(
+          show: false,
+          border: Border.all(color: const Color(0xff37434d), width: 1)),
+      minX: 0,
+      maxX: 10,
+      minY: -10,
+      maxY: 10,
+      lineBarsData: [
+        LineChartBarData(
+          spots: [
+            FlSpot(0, 0),
+            FlSpot(1, 8),
+            FlSpot(2, 0),
+            FlSpot(3, 7),
+            FlSpot(4, 0),
+            FlSpot(5, 9),
+            FlSpot(6, 6),
+            FlSpot(7, -7),
+            FlSpot(8, -1),
+            FlSpot(9, -9),
+            FlSpot(10, 10),
+          ],
+          isCurved: true,
+          colors: [Color(0xff73FC7D)],
+          barWidth: 2,
+          isStrokeCapRound: true,
+          dotData: FlDotData(
+            show: false,
+          ),
+          belowBarData: BarAreaData(
+            show: false,
+            colors: [Color(0xff73FC7D)],
+          ),
+        ),
+      ],
     );
   }
 }
