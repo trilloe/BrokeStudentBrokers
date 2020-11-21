@@ -92,11 +92,11 @@ class _ChatState extends State<Chat> {
           getTitles: (value) {
             switch (value.toInt()) {
               case -10:
-                return '-10k';
+                return '-100%';
               case 0:
-                return '0';
+                return '0%';
               case 10:
-                return '10k';
+                return '100%';
             }
             return '';
           },
