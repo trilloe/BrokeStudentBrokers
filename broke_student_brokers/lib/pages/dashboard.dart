@@ -1,9 +1,13 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'home.dart';
+import 'somethingWrong.dart';
+import 'loading.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -11,36 +15,54 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-              height: 240,
-              child: AspectRatio(
-                aspectRatio: 2.3,
-                child: Container(
-                  margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(18),
-                      ),
-                      color: Color(0xff202020)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        right: 16.0, left: 12.0, top: 24, bottom: 12),
-                    child: LineChart(bannerData()),
-                  ),
-                ),
-              )),
-          Expanded(
-            // height: 400.0,
-            child: HoldingList(),
-          )
-        ],
-      ),
-    );
+    return FutureBuilder(
+        // Initialize FlutterFire
+        future: _initialization,
+        builder: (context, snapshot) {
+          // Check for errors
+          if (snapshot.hasError) {
+            return somethingWrong();
+          }
+
+          // Application
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Container(
+              child: Column(
+                children: [
+                  Container(
+                      height: 240,
+                      child: AspectRatio(
+                        aspectRatio: 1.70,
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(18),
+                              ),
+                              color: Color(0xff202020)),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                right: 16.0, left: 12.0, top: 24, bottom: 12),
+                            child: LineChart(bannerData()),
+                          ),
+                        ),
+                      )),
+                  Expanded(
+                    // height: 400.0,
+                    child: HoldingList(),
+                  )
+                ],
+              ),
+            );
+          }
+
+          //Otherwise while waiting
+          return loading();
+        });
   }
 
   LineChartData bannerData() {
