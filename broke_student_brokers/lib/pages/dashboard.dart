@@ -19,9 +19,9 @@ class _DashboardState extends State<Dashboard> {
           Container(
               height: 240,
               child: AspectRatio(
-                aspectRatio: 1.70,
+                aspectRatio: 2.3,
                 child: Container(
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(
                         Radius.circular(18),
