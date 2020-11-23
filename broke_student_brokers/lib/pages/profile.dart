@@ -1,3 +1,4 @@
+import 'package:broke_student_brokers/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -8,10 +9,6 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // appBar: AppBar(
-        //   title: Text('Profile'),
-        // ),
-        );
+    return Container(child: Text('Profile Placeholder'));
   }
 }
