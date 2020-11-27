@@ -360,4 +360,14 @@ final List<Transaction> _transactions = <Transaction>[
       status: 'Completed',
       quantity: '5',
       buyorsell: 'BUY'),
+  Transaction(
+      name: 'AMZN',
+      time: '16:48:32',
+      date: '10/12/2020',
+      orderid: '87456928459287',
+      createdat: '2020-11-06T16:47:00.179665z',
+      submittedat: '2020-11-06T16:48:00.179665z',
+      status: 'Completed',
+      quantity: '5',
+      buyorsell: 'BUY'),
 ];

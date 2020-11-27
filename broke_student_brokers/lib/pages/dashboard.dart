@@ -36,9 +36,9 @@ class _DashboardState extends State<Dashboard> {
                   Container(
                       height: 240,
                       child: AspectRatio(
-                        aspectRatio: 1.70,
+                        aspectRatio: 2.3,
                         child: Container(
-                          margin: EdgeInsets.all(10),
+                          margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
                           decoration: const BoxDecoration(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(18),
@@ -341,11 +341,12 @@ class HoldingList extends StatelessWidget {
                   Expanded(
                       child: Container(
                           alignment: Alignment.center,
+                          // padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                           child: AspectRatio(
-                              aspectRatio: 3.5,
+                              aspectRatio: 4,
                               child: Container(
                                 margin:
-                                    EdgeInsets.fromLTRB(24.0, 4.0, 24.0, 4.0),
+                                    EdgeInsets.fromLTRB(60.0, 4.0, 60.0, 4.0),
                                 child: LineChart(mainData()),
                               )))),
                   Padding(
