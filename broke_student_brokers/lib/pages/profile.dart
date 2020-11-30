@@ -17,6 +17,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   Widget _listItemBuilder(BuildContext context, int index) {
+    //Widget _listItemBuilder(BuildContext context, DocumentSnapshot document) {
     return Container(
       child: Column(
         children: [
@@ -91,7 +92,8 @@ class _ProfileState extends State<Profile> {
                                 flex: 1,
                                 child: Container(
                                   child: Text(
-                                    _transactions[index].name,
+                                    _transactions[index]
+                                        .name, //document['ticker'],
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white,
@@ -259,6 +261,25 @@ class _ProfileState extends State<Profile> {
     ));
   }
 }
+
+// @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: StreamBuilder(
+//         stream: FirebaseFirestore.instance.collection('transactionInfo').snapshots(),
+//         builder: (context, snapshot) {
+//           if (!snapshot.hasData) return const Text('Loading...');
+//           return ListView.builder(
+//             itemCount: snapshot.data.documents.length,
+//             itemBuilder: (context, index) =>
+//                 _listItemBuilder(context, snapshot.data.documents[index]),
+//             itemExtent: 95,
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
 
 // class _ProfileState extends State<Profile> {
 //   @override
