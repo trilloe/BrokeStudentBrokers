@@ -272,35 +272,13 @@ class _DashboardState extends State<Dashboard> {
 //   GaugeSegment(this.segment, this.size, this.color);
 // }
 
-class HoldingList extends StatelessWidget {
-  final List ticker = [
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-  ];
-  final List share_count = [
-    1,
-    2,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-  ];
+class HoldingList extends StatefulWidget {
+  @override
+  _HoldingListState createState() => _HoldingListState();
+}
+
+class _HoldingListState extends State<HoldingList> {
+  Map stocks;
 
   @override
   Widget build(BuildContext context) {
@@ -309,6 +287,12 @@ class HoldingList extends StatelessWidget {
         itemBuilder: (context, position) {
           return Column(
             children: <Widget>[
+              MaterialButton(
+                height: 0,
+                minWidth: 0,
+                elevation: 0,
+                onPressed: fetchData(),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -319,7 +303,7 @@ class HoldingList extends StatelessWidget {
                         padding:
                             const EdgeInsets.fromLTRB(12.0, 12.0, 4.0, 6.0),
                         child: Text(
-                          ticker[position],
+                          stocks['AMZN']['ticker'].toString(),
                           style: TextStyle(
                               fontSize: 16.0, fontWeight: FontWeight.bold),
                         ),
@@ -328,8 +312,8 @@ class HoldingList extends StatelessWidget {
                         padding:
                             const EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 12.0),
                         child: Text(
-                          share_count[position].toString() +
-                              (share_count[position] == 1
+                          stocks['AMZN']['shareCount'].toString() +
+                              (stocks['AMZN']['shareCount'] == 1
                                   ? ' Share'
                                   : ' Shares'),
                           style: TextStyle(fontSize: 13.0),
@@ -354,13 +338,14 @@ class HoldingList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Text(
-                          "\$219.03",
+                          '\$ ' + stocks['AMZN']['currentHoldings'].toString(),
                           style: TextStyle(color: Color(0xFF73FC7D)),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "(\$215.65)",
+                            '\$ ' +
+                                stocks['AMZN']['initialHoldings'].toString(),
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -384,7 +369,8 @@ class HoldingList extends StatelessWidget {
             ],
           );
         },
-        itemCount: ticker.length,
+        // itemCount: ticker.count(),
+        itemCount: 5,
       ),
     );
   }
@@ -481,6 +467,15 @@ class HoldingList extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  fetchData() {
+    FirebaseFirestore fs = FirebaseFirestore.instance;
+    fs.collection('stocks').snapshots().listen((snapshot) {
+      setState(() {
+        stocks = snapshot.docs[0].data();
+      });
+    });
   }
 }
 
