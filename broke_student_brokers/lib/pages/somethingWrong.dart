@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
-class somethingWrong extends StatefulWidget {
-  @override
-  _somethingWrongState createState() => _somethingWrongState();
-}
-
-class _somethingWrongState extends State<somethingWrong> {
+class somethingWrong extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(child: Text('Something Went Wrong'));
