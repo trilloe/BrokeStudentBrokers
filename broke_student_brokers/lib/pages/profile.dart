@@ -269,7 +269,7 @@ class _ProfileState extends State<Profile> {
             .collection('TransactionInfo')
             .snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return const Text('Loading...');
+          if (!snapshot.hasData) return const Text(' ');
           return ListView.builder(
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, index) =>
