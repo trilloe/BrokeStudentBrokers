@@ -1,7 +1,8 @@
-import 'package:broke_student_brokers/pages/chat.dart';
-import 'package:broke_student_brokers/pages/dashboard.dart';
-import 'package:broke_student_brokers/pages/profile.dart';
-import 'package:broke_student_brokers/pages/settings.dart';
+import 'package:broke_student_brokers/pages/home/chat.dart';
+import 'package:broke_student_brokers/pages/home/dashboard.dart';
+import 'package:broke_student_brokers/pages/home/profile.dart';
+import 'package:broke_student_brokers/pages/home/settings.dart';
+import 'package:broke_student_brokers/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,16 +31,16 @@ class _HomeState extends State<Home> {
 
   bool bot_on = true; // stores state of bot, fetch from cloud
 
-  Map botState;
-  botOn() {
-    FirebaseFirestore fs = FirebaseFirestore.instance;
-    fs.collection('botState').snapshots().listen((snapshot) {
-      setState(() {
-        botState = snapshot.docs[0].data();
-      });
-    });
-    bot_on = botState['bot_on'];
-  }
+  // Map botState;
+  // botOn() {
+  //   FirebaseFirestore fs = FirebaseFirestore.instance;
+  //   fs.collection('botState').snapshots().listen((snapshot) {
+  //     setState(() {
+  //       botState = snapshot.docs[0].data();
+  //     });
+  //   });
+  //   bot_on = botState['bot_on'];
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -190,8 +191,9 @@ class _HomeState extends State<Home> {
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
+  final AuthService _auth = AuthService();
 
-  const CustomAppBar({Key key, @required this.height}) : super(key: key);
+  CustomAppBar({Key key, @required this.height}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -226,9 +228,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     //     ),
                     //   ),
                     // ),
+                    FlatButton.icon(
+                      icon: Icon(Icons.person),
+                      label: Text('Logout'),
+                      onPressed: () async {
+                        await _auth.signOut();
+                      },
+                    ),
                     IconButton(
                       icon: Icon(Icons.account_circle),
-                      onPressed: () => null,
+                      onPressed: () {},
                     ),
                   ]),
             ),
