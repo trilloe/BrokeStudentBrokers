@@ -272,218 +272,218 @@ class _DashboardState extends State<Dashboard> {
 //   GaugeSegment(this.segment, this.size, this.color);
 // }
 
-class HoldingList extends StatelessWidget {
-  final List ticker = [
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-    'TSLA',
-  ];
-  final List share_count = [
-    1,
-    2,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-  ];
+class HoldingList extends StatefulWidget {
+  @override
+  _HoldingListState createState() => _HoldingListState();
+}
 
+class _HoldingListState extends State<HoldingList> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemBuilder: (context, position) {
-          return Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(12.0, 12.0, 4.0, 6.0),
-                        child: Text(
-                          ticker[position],
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 12.0),
-                        child: Text(
-                          share_count[position].toString() +
-                              (share_count[position] == 1
-                                  ? ' Share'
-                                  : ' Shares'),
-                          style: TextStyle(fontSize: 13.0),
-                        ),
-                      ),
-                    ],
-                  ),
-                  // TODO: Add graph
-                  Expanded(
-                      child: Container(
-                          alignment: Alignment.center,
-                          // padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: AspectRatio(
-                              aspectRatio: 4,
-                              child: Container(
-                                margin:
-                                    EdgeInsets.fromLTRB(60.0, 4.0, 60.0, 4.0),
-                                child: LineChart(mainData()),
-                              )))),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Text(
-                          "\$219.03",
-                          style: TextStyle(color: Color(0xFF73FC7D)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "(\$215.65)",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   child: Icon(
-                        //     Icons.star_border,
-                        //     size: 35.0,
-                        //     color: Colors.grey,
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              // Divider(
-              //   height: 2.0,
-              //   color: Colors.grey,
-              // )
-            ],
+    return Scaffold(
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('testStocks').snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return const Text('Loading...');
+          return ListView.builder(
+            itemCount: snapshot.data.documents.length,
+            itemBuilder: (context, index) =>
+                _listItemBuilder(context, snapshot.data.documents[index]),
+            itemExtent: 95,
           );
         },
-        itemCount: ticker.length,
       ),
-    );
-  }
-
-  LineChartData mainData() {
-    return LineChartData(
-      lineTouchData: LineTouchData(
-        touchTooltipData: LineTouchTooltipData(
-            tooltipBgColor: Colors.white,
-            getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
-              return touchedBarSpots.map((barSpot) {
-                final flSpot = barSpot;
-                if (flSpot.y >= 0) {
-                  return LineTooltipItem(
-                    '${flSpot.y}',
-                    const TextStyle(color: Colors.green),
-                  );
-                } else {
-                  return LineTooltipItem(
-                    '${flSpot.y}',
-                    const TextStyle(color: Colors.red),
-                  );
-                }
-              }).toList();
-            }),
-        getTouchedSpotIndicator:
-            (LineChartBarData barData, List<int> spotIndexes) {
-          return spotIndexes.map((index) {
-            return TouchedSpotIndicatorData(
-              FlLine(
-                color: Colors.white,
-              ),
-              FlDotData(
-                show: true,
-                getDotPainter: (spot, percent, barData, index) =>
-                    FlDotCirclePainter(
-                  radius: 10,
-                  color: Colors.white,
-                ),
-              ),
-            );
-          }).toList();
-        },
-        touchCallback: (LineTouchResponse touchResponse) {},
-        handleBuiltInTouches: true,
-      ),
-      gridData: FlGridData(
-        show: false,
-      ),
-      extraLinesData: ExtraLinesData(horizontalLines: [
-        HorizontalLine(
-          y: 0,
-          color: Colors.white.withOpacity(0.4),
-          strokeWidth: 1,
-          dashArray: [10, 3],
-        ),
-      ]),
-      titlesData: FlTitlesData(
-        show: false,
-      ),
-      borderData: FlBorderData(
-          show: false,
-          border: Border.all(color: const Color(0xff37434d), width: 1)),
-      minX: 0,
-      maxX: 10,
-      minY: -10,
-      maxY: 10,
-      lineBarsData: [
-        LineChartBarData(
-          spots: [
-            FlSpot(0, 0),
-            FlSpot(1, 8),
-            FlSpot(2, 0),
-            FlSpot(3, 7),
-            FlSpot(4, 0),
-            FlSpot(5, 9),
-            FlSpot(6, 6),
-            FlSpot(7, -7),
-            FlSpot(8, -1),
-            FlSpot(9, -9),
-            FlSpot(10, 10),
-          ],
-          isCurved: true,
-          colors: getColors([0, 8, 0, 7, 0, 9, 6, -7, -1, -9, 10]),
-          barWidth: 2,
-          isStrokeCapRound: true,
-          dotData: FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-            show: false,
-            colors: getColors([0, 8, 0, 7, 0, 9, 6, -7, -1, -9, 10]),
-          ),
-        ),
-      ],
     );
   }
 }
+
+@override
+Widget _listItemBuilder(BuildContext context, DocumentSnapshot document) {
+  return Column(
+    children: <Widget>[
+      // MaterialButton(
+      //   height: 0,
+      //   minWidth: 0,
+      //   elevation: 0,
+      //   onPressed: fetchData(),
+      // ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12.0, 12.0, 4.0, 6.0),
+                child: Text(
+                  document['ticker'],
+                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 12.0),
+                child: Text(
+                  document['sharecount'].toString() +
+                      (document['sharecount'] == 1 ? ' Share' : ' Shares'),
+                  style: TextStyle(fontSize: 13.0),
+                ),
+              ),
+            ],
+          ),
+          // TODO: Add graph
+          Expanded(
+              child: Container(
+                  alignment: Alignment.center,
+                  // padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: AspectRatio(
+                      aspectRatio: 4,
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(60.0, 4.0, 60.0, 4.0),
+                        child: LineChart(mainData()),
+                      )))),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Text(
+                  '\$ ' + document['currentHoldings'].toString(),
+                  style: TextStyle(color: Color(0xFF73FC7D)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '\$ ' + document['initialHoldings'].toString(),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: Icon(
+                //     Icons.star_border,
+                //     size: 35.0,
+                //     color: Colors.grey,
+                //   ),
+                // ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      // Divider(
+      //   height: 2.0,
+      //   color: Colors.grey,
+      // )
+    ],
+  );
+}
+
+LineChartData mainData() {
+  return LineChartData(
+    lineTouchData: LineTouchData(
+      touchTooltipData: LineTouchTooltipData(
+          tooltipBgColor: Colors.white,
+          getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+            return touchedBarSpots.map((barSpot) {
+              final flSpot = barSpot;
+              if (flSpot.y >= 0) {
+                return LineTooltipItem(
+                  '${flSpot.y}',
+                  const TextStyle(color: Colors.green),
+                );
+              } else {
+                return LineTooltipItem(
+                  '${flSpot.y}',
+                  const TextStyle(color: Colors.red),
+                );
+              }
+            }).toList();
+          }),
+      getTouchedSpotIndicator:
+          (LineChartBarData barData, List<int> spotIndexes) {
+        return spotIndexes.map((index) {
+          return TouchedSpotIndicatorData(
+            FlLine(
+              color: Colors.white,
+            ),
+            FlDotData(
+              show: true,
+              getDotPainter: (spot, percent, barData, index) =>
+                  FlDotCirclePainter(
+                radius: 10,
+                color: Colors.white,
+              ),
+            ),
+          );
+        }).toList();
+      },
+      touchCallback: (LineTouchResponse touchResponse) {},
+      handleBuiltInTouches: true,
+    ),
+    gridData: FlGridData(
+      show: false,
+    ),
+    extraLinesData: ExtraLinesData(horizontalLines: [
+      HorizontalLine(
+        y: 0,
+        color: Colors.white.withOpacity(0.4),
+        strokeWidth: 1,
+        dashArray: [10, 3],
+      ),
+    ]),
+    titlesData: FlTitlesData(
+      show: false,
+    ),
+    borderData: FlBorderData(
+        show: false,
+        border: Border.all(color: const Color(0xff37434d), width: 1)),
+    minX: 0,
+    maxX: 10,
+    minY: -10,
+    maxY: 10,
+    lineBarsData: [
+      LineChartBarData(
+        spots: [
+          FlSpot(0, 0),
+          FlSpot(1, 8),
+          FlSpot(2, 0),
+          FlSpot(3, 7),
+          FlSpot(4, 0),
+          FlSpot(5, 9),
+          FlSpot(6, 6),
+          FlSpot(7, -7),
+          FlSpot(8, -1),
+          FlSpot(9, -9),
+          FlSpot(10, 10),
+        ],
+        isCurved: true,
+        colors: getColors([0, 8, 0, 7, 0, 9, 6, -7, -1, -9, 10]),
+        barWidth: 2,
+        isStrokeCapRound: true,
+        dotData: FlDotData(
+          show: false,
+        ),
+        belowBarData: BarAreaData(
+          show: false,
+          colors: getColors([0, 8, 0, 7, 0, 9, 6, -7, -1, -9, 10]),
+        ),
+      ),
+    ],
+  );
+}
+
+//   fetchData() {
+//     FirebaseFirestore fs = FirebaseFirestore.instance;
+//     fs.collection('stocks').snapshots().listen((snapshot) {
+//       setState(() {
+//         for (var item in snapshot.docs) {
+//           stocks = item.data();
+//           _open.add(stocks);
+//         }
+//       });
+//     });
+//   }
+// }
 
 List<Color> getColors(data) {
   List<Color> li = [];
@@ -496,3 +496,14 @@ List<Color> getColors(data) {
   }
   return li;
 }
+
+// class Open {
+//   Open({this.name, this.numshares, this.price1, this.price2});
+
+//   String name;
+//   String numshares;
+//   String price1;
+//   String price2;
+// }
+
+// List _open = [];

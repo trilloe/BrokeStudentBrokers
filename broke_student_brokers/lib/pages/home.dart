@@ -4,6 +4,8 @@ import 'package:broke_student_brokers/pages/profile.dart';
 import 'package:broke_student_brokers/pages/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,7 +19,7 @@ class _HomeState extends State<Home> {
     Dashboard(),
     Chat(),
     Profile(),
-    Settings(),
+    Setting(),
   ];
 
   // Active Pages ( Tab )
@@ -25,7 +27,19 @@ class _HomeState extends State<Home> {
   Widget currentScreen = Dashboard();
 
   final PageStorageBucket bucket = PageStorageBucket();
+
   bool bot_on = true; // stores state of bot, fetch from cloud
+
+  Map botState;
+  botOn() {
+    FirebaseFirestore fs = FirebaseFirestore.instance;
+    fs.collection('botState').snapshots().listen((snapshot) {
+      setState(() {
+        botState = snapshot.docs[0].data();
+      });
+    });
+    bot_on = botState['bot_on'];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +156,7 @@ class _HomeState extends State<Home> {
                     minWidth: 100,
                     onPressed: () {
                       setState(() {
-                        currentScreen = Settings();
+                        currentScreen = Setting();
                         currentTab = 3;
                       });
                     },
