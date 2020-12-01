@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 from datetime import datetime
 import numpy as np
+import pandas as pd
+from pandas.core.frame import DataFrame
 import ta
 import alpaca_trade_api as tradeapi
 import threading
@@ -13,7 +15,11 @@ api_secret = '4YWpFeBVSxjGcMKsemrLHjMkY7yXgLWSW9KvVbTv'
 api = tradeapi.REST(key_id=api_key_id, secret_key=api_secret, api_version='v2', base_url=base_url)
 
 
-print(api.list_positions())
+# print(api.list_positions())
+
+arrays = [np.array(['bar', 'bar', 'baz', 'baz', 'foo', 'foo', 'qux', 'qux']), np.array(['one', 'two', 'one', 'two', 'one', 'two', 'one', 'two'])]
+
+
 
 # ws_url = 'wss://data.alpaca.markets'
 
