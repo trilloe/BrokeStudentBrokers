@@ -8,10 +8,10 @@ use_plugin("python.coverage")
 use_plugin("python.distutils")
 
 
-name = "BrokeStudentBrokers"
+name = "BSB_Back"
 default_task = "publish"
 
 
 @init
 def set_properties(project):
-    pass
+    project.build_depends_on('mockito')
