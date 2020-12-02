@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-import 'package:broke_student_brokers/pages/deposit.dart';
+import 'package:broke_student_brokers/pages/home/deposit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Setting extends StatefulWidget {
