@@ -29,3 +29,7 @@ CI/CD test
 0.1.6 (2/12/2020)
 ------------------
 Docker Build Test
+
+0.1.7 (2/12/2020)
+------------------
+All Tests Successful
