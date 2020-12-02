@@ -1,4 +1,4 @@
-import 'package:broke_student_brokers/pages/dashboard.dart';
+import 'package:broke_student_brokers/pages/home/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -269,7 +269,7 @@ class _ProfileState extends State<Profile> {
             .collection('TransactionInfo')
             .snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return const Text('Loading...');
+          if (!snapshot.hasData) return const Text(' ');
           return ListView.builder(
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, index) =>
