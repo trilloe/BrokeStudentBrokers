@@ -1,6 +1,8 @@
 import alpaca_trade_api as tradeapi
 import threading
 
+from numpy.lib.function_base import place
+
 API_KEY = 'PKQVV0XBE9EL7L873JAH'
 API_SECRET = '4YWpFeBVSxjGcMKsemrLHjMkY7yXgLWSW9KvVbTv'
 APCA_API_BASE_URL = "https://paper-api.alpaca.markets"
@@ -25,7 +27,7 @@ def place_order(): # Buy/Sell stocks
 	print("Successful")
 	return 1
 
-print(account)
+print(place_order())
 
 
 
