@@ -1,0 +1,6 @@
+talib-binary
+datetime
+numpy
+alpaca_trade_api
+pandas
+matplotlib

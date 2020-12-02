@@ -165,9 +165,9 @@ for s in symbol:
 		
 
 		# Plots market data and indicators
-		# ax.plot(timeList,closeList,label=s,color="black", alpha=0.35)
-		# ax.scatter(timeList,buy,label="buy",color="green", marker="^", alpha=0.45)
-		# ax.scatter(timeList,sell,label="sell",color="red", marker="v",alpha = 0.45)
+		# 
+		
+		
 		# ax.plot(timeList,RSI,label=symbol,color="red")
 
 
