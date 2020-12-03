@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:broke_student_brokers/pages/home/deposit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:broke_student_brokers/services/auth.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -497,9 +499,7 @@ class _SettingState extends State<Setting> {
                                             child: AspectRatio(
                                               aspectRatio: 2.5,
                                               child: GestureDetector(
-                                                onTap: () => {
-                                                  print("Tapped on container")
-                                                },
+                                                onTap: () => {},
                                                 child: Container(
                                                   margin: EdgeInsets.all(5),
                                                   decoration:
@@ -548,35 +548,40 @@ class _SettingState extends State<Setting> {
                                 height: 70,
                                 child: AspectRatio(
                                   aspectRatio: 2.5,
-                                  child: Container(
-                                    margin: EdgeInsets.all(5),
-                                    decoration: const BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                      color: Color(0xffFF5D5D),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                        top: 0,
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      await _auth.signOut();
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.all(5),
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        color: Color(0xffFF5D5D),
                                       ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'LOG OUT',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontFamily: "Roboto",
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 4),
-                                            child: Icon(Icons.logout),
-                                          )
-                                        ],
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                          top: 0,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'LOG OUT',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: "Roboto",
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(left: 4),
+                                              child: Icon(Icons.logout),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

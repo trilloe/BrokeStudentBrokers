@@ -155,9 +155,11 @@ class _HomeState extends State<Home> {
                   ),
                   MaterialButton(
                     minWidth: 100,
+                    key: Key("toSetting"),
                     onPressed: () {
                       setState(() {
                         currentScreen = Setting();
+
                         currentTab = 3;
                       });
                     },
@@ -191,7 +193,7 @@ class _HomeState extends State<Home> {
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
-  final AuthService _auth = AuthService();
+  // final AuthService _auth = AuthService();
 
   CustomAppBar({Key key, @required this.height}) : super(key: key);
 
@@ -228,13 +230,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     //     ),
                     //   ),
                     // ),
-                    FlatButton.icon(
-                      icon: Icon(Icons.person),
-                      label: Text('Logout'),
-                      onPressed: () async {
-                        await _auth.signOut();
-                      },
-                    ),
+                    // FlatButton.icon(
+                    //   icon: Icon(Icons.person),
+                    //   label: Text('Logout'),
+                    //   onPressed: () async {
+                    //     await _auth.signOut();
+                    //   },
+                    // ),
                     IconButton(
                       icon: Icon(Icons.account_circle),
                       onPressed: () {},
