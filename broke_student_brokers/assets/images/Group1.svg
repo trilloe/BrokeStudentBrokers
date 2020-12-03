@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="332" height="93" viewBox="0 0 332 93">
+  <defs>
+    <style>
+      .cls-1 {
+        isolation: isolate;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        font-size: 35px;
+        font-family: Gotham-Light, Gotham;
+        font-weight: 300;
+      }
+
+      .cls-4 {
+        font-size: 65px;
+        font-family: Gotham-Bold, Gotham;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <g id="Group_1" data-name="Group 1" class="cls-1" transform="translate(-631 -483.674)">
+    <text id="Broke" class="cls-2" transform="translate(699 514.674)"><tspan x="-64.4" y="0">BROKE</tspan></text>
+    <text id="Student_" data-name="Student
+" class="cls-2" transform="translate(876 515.674)"><tspan x="-86.152" y="0">STUDENT</tspan><tspan x="0" y="37"></tspan></text>
+    <path id="Icon_material-money-off" data-name="Icon material-money-off" class="cls-3" d="M19.133,10.527c2.751,0,3.771,1.314,3.863,3.245h3.415a6.16,6.16,0,0,0-4.961-5.888V4.5H16.815V7.838a9.161,9.161,0,0,0-2.287.834L16.8,10.944A6.06,6.06,0,0,1,19.133,10.527ZM8.053,6.138,6.09,8.1l5.316,5.316c0,3.214,2.411,4.961,6.042,6.042l5.424,5.424c-.525.742-1.623,1.406-3.74,1.406-3.183,0-4.435-1.422-4.605-3.245h-3.4c.185,3.384,2.72,5.285,5.687,5.919v3.353h4.636V28.994a7.731,7.731,0,0,0,3.786-1.731l3.431,3.431,1.963-1.963Z" transform="translate(758.043 485.03)"/>
+    <text id="BROKERS" class="cls-4" transform="translate(796 565.674)"><tspan x="-164.385" y="0">BROKERS</tspan></text>
+  </g>
+</svg>
