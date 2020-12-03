@@ -4,7 +4,7 @@ import talib
 import pandas as pd
 import math
 
-
+#YOLO
 
 
 def get_returns(time_series_closelist):
