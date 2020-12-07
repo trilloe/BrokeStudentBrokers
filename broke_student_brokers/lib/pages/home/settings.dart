@@ -25,15 +25,13 @@ class _SettingState extends State<Setting> {
               children: [
                 Row(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 390, top: 10, right: 0),
-                      child: IconButton(
-                        icon: Icon(Icons.edit),
-                        onPressed: () => Deposit(),
-                      ),
+                    Expanded(child: Container()),
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () => Deposit(),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 0, top: 10),
+                      padding: EdgeInsets.only(left: 0, top: 10, right: 20),
                       child: Text(
                         'EDIT',
                         textAlign: TextAlign.right,
@@ -44,6 +42,25 @@ class _SettingState extends State<Setting> {
                             fontWeight: FontWeight.w700),
                       ),
                     ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(left: 390, top: 10, right: 0),
+                    //   child: IconButton(
+                    //     icon: Icon(Icons.edit),
+                    //     onPressed: () => Deposit(),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(left: 0, top: 10),
+                    //   child: Text(
+                    //     'EDIT',
+                    //     textAlign: TextAlign.right,
+                    //     style: TextStyle(
+                    //         color: Colors.white,
+                    //         fontFamily: "Roboto",
+                    //         fontSize: 14,
+                    //         fontWeight: FontWeight.w700),
+                    //   ),
+                    // ),
                   ],
                 ),
                 Column(
@@ -579,7 +596,7 @@ class _SettingState extends State<Setting> {
                                             Padding(
                                               padding: EdgeInsets.only(left: 4),
                                               child: Icon(Icons.logout),
-                                            )
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -590,6 +607,9 @@ class _SettingState extends State<Setting> {
                             ),
                           ],
                         ),
+                        Container(
+                          height: 200,
+                        )
                       ],
                     )
                   ],
