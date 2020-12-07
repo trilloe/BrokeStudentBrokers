@@ -55,13 +55,13 @@ class _SignInState extends State<SignIn> {
               padding: EdgeInsets.only(top: 40),
               child: Align(
                 alignment: Alignment.topRight,
-                // child: FlatButton.icon(
-                //   icon: Icon(Icons.person),
-                //   label: Text('Register'),
-                //   onPressed: () {
-                //     widget.toggleView();
-                //   },
-                // ),
+                child: FlatButton.icon(
+                  icon: Icon(Icons.person),
+                  label: Text('Register'),
+                  onPressed: () {
+                    widget.toggleView();
+                  },
+                ),
               ),
             ),
             Container(
@@ -104,10 +104,10 @@ class _SignInState extends State<SignIn> {
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             dynamic result = await _auth
-                                .registerWithEmailAndPassword(email, password);
+                                .signInWithEmailAndPassword(email, password);
                             if (result == null) {
-                              setState(
-                                  () => error = 'Please enter a valid email');
+                              setState(() =>
+                                  error = 'Please enter valid credentials');
                             }
                           }
                         },
