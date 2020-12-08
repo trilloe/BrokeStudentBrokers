@@ -11,14 +11,15 @@ class DatabaseService {
   // final CollectionReference userCollection =
   //     FirebaseFirestore.instance.collection("userProfile");
 
-  Future updateUserData(int currentHoldings, int initialHoldings,
-      int shareCount, String ticker, String userName) async {
+  Future updateUserData(int balance, bool botState, List cumulativeCurrentValue,
+      List currentHoldings, List orders, Map userDetails) async {
     return await stockCollection.doc(uid).set({
+      'balance': balance,
+      'botState': botState,
+      'cumulativeCurrentValue': cumulativeCurrentValue,
       'currentHoldings': currentHoldings,
-      'initialHoldings': initialHoldings,
-      'shareCount': shareCount,
-      'ticker': ticker,
-      'userName': userName,
+      'orders': orders,
+      'userDetails': userDetails
     });
   }
 
@@ -26,11 +27,13 @@ class DatabaseService {
   List<Stocks> _stocksListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Stocks(
-          currentHoldings: doc.data()['currentHoldings'] ?? 0,
-          initialHoldings: doc.data()['initialHoldings'] ?? 100,
-          shareCount: doc.data()['shareCount'] ?? 0,
-          ticker: doc.data()['ticker'] ?? 'AMZN',
-          userName: doc.data()['userName'] ?? 'default user');
+        balance: doc.data()['balance'] ?? 500,
+        botState: doc.data()['botState'] ?? true,
+        cumulativeCurrentValue: doc.data()['cumulativeCurrentValue'] ?? [],
+        currentHoldings: doc.data()['currentHoldings'] ?? [],
+        orders: doc.data()['orders'] ?? [],
+        userDetails: doc.data()['userDetails'] ?? {},
+      );
     }).toList();
   }
 

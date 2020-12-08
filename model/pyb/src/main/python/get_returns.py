@@ -4,7 +4,13 @@ import talib
 import pandas as pd
 import math
 
-
+"""
+cd model
+cd pyb
+docker build -t pybtest .
+docker run pybtest
+"""
+# Yolo sss
 
 def get_returns(time_series_closelist):
 
