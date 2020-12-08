@@ -219,11 +219,11 @@ for s in symbol[500:520]:
 					Y_Returns.append((((sum(money_returned)-sum(money_spent))/sum(money_spent))*100))
 
 			
-			# print([lower,upper])
-			# print("Total Investment in {0} : {1}".format(s,sum(money_spent)))
-			# print("Total Returns from {0} : {1}".format(s,sum(money_returned)))
+			print([lower,upper])
+			print("Total Investment in {0} : {1}".format(s,sum(money_spent)))
+			print("Total Returns from {0} : {1}".format(s,sum(money_returned)))
 			# print("Return Percentage : {0}".format((((sum(money_returned)-sum(money_spent))/sum(money_spent))*100)))
-			# print(" ")
+			print(" ")
 
 			lower = lower + 1
 			upper = upper - 1

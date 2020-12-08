@@ -138,7 +138,11 @@ while iteratorPos < assetListLen:
     ax.scatter(timeList,buy,label="buy",color="green", marker="^", alpha=0.45)
     ax.scatter(timeList,sell,label="sell",color="red", marker="v",alpha = 0.45)
     ax.plot(timeList,RSI,label="RSI",color="blue",alpha = 0.45)
+    ax.axhline(30, color='black')
+    ax.axhline(70, color='black')
     
     iteratorPos += 1
+
+
 
 plt.show()
