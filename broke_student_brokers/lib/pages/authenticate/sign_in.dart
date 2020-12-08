@@ -77,6 +77,7 @@ class _SignInState extends State<SignIn> {
                     children: <Widget>[
                       SizedBox(height: 20.0),
                       TextFormField(
+                          decoration: InputDecoration(hintText: "Enter Email"),
                           key: Key('hint1'),
                           validator: EmailFieldValidator.validate,
                           onChanged: (val) {
@@ -84,6 +85,7 @@ class _SignInState extends State<SignIn> {
                           }),
                       SizedBox(height: 20.0),
                       TextFormField(
+                        decoration: InputDecoration(hintText: "Enter Password"),
                         obscureText: true,
                         validator: PasswordFieldValidator.validate,
                         key: Key('hint2'),
