@@ -13,13 +13,13 @@ class _StocksListState extends State<StocksList> {
   Widget build(BuildContext context) {
     final stocks = Provider.of<List<Stocks>>(context);
 
-    stocks.forEach((stock) {
-      print(stock.currentHoldings);
-      print(stock.initialHoldings);
-      print(stock.shareCount);
-      print(stock.ticker);
-      print(stock.userName);
-    });
+    // stocks.forEach((stock) {
+    //   print(stock.currentHoldings);
+    //   print(stock.initialHoldings);
+    //   print(stock.shareCount);
+    //   print(stock.ticker);
+    //   print(stock.userName);
+    // });
 
     return Container();
   }
