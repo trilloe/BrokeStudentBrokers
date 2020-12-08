@@ -1,14 +1,16 @@
 class Stocks {
-  final int currentHoldings;
-  final int initialHoldings;
-  final int shareCount;
-  final String ticker;
-  final String userName;
+  final int balance;
+  final bool botState;
+  final List cumulativeCurrentValue;
+  final List currentHoldings;
+  final List orders;
+  final Map userDetails;
 
   Stocks(
-      {this.currentHoldings,
-      this.initialHoldings,
-      this.shareCount,
-      this.ticker,
-      this.userName});
+      {this.balance,
+      this.botState,
+      this.cumulativeCurrentValue,
+      this.currentHoldings,
+      this.orders,
+      this.userDetails});
 }

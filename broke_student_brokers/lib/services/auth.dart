@@ -51,7 +51,7 @@ class AuthService {
 
       // create a new doc for user with uid
       await DatabaseService(uid: user.uid)
-          .updateUserData(0, 100, 0, 'AMZN', 'default user');
+          .updateUserData(500, true, [], [], [], {});
 
       return user;
     } catch (e) {
