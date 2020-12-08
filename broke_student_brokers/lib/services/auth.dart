@@ -1,3 +1,4 @@
+import 'package:broke_student_brokers/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
@@ -47,6 +48,11 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User user = result.user;
+
+      // create a new doc for user with uid
+      await DatabaseService(uid: user.uid)
+          .updateUserData(0, 100, 0, 'AMZN', 'default user');
+
       return user;
     } catch (e) {
       print(e.toString());

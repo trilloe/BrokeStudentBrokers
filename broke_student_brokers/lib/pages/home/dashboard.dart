@@ -323,8 +323,8 @@ Widget _listItemBuilder(BuildContext context, DocumentSnapshot document) {
               Padding(
                 padding: const EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 12.0),
                 child: Text(
-                  document['sharecount'].toString() +
-                      (document['sharecount'] == 1 ? ' Share' : ' Shares'),
+                  document['shareCount'].toString() +
+                      (document['shareCount'] == 1 ? ' Share' : ' Shares'),
                   style: TextStyle(fontSize: 13.0),
                 ),
               ),

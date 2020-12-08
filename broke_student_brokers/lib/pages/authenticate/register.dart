@@ -81,12 +81,14 @@ class _RegisterState extends State<Register> {
                     children: <Widget>[
                       SizedBox(height: 20.0),
                       TextFormField(
+                          decoration: InputDecoration(hintText: "Enter Email"),
                           validator: RegisterEmailFieldValidator.validate,
                           onChanged: (val) {
                             setState(() => email = val);
                           }),
                       SizedBox(height: 20.0),
                       TextFormField(
+                        decoration: InputDecoration(hintText: "Enter Password"),
                         obscureText: true,
                         validator: RegisterPasswordFieldValidator.validate,
                         onChanged: (val) {
