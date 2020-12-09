@@ -233,9 +233,9 @@ class _HoldingListState extends State<HoldingList> {
         builder: (context, snapshot) {
           if (!snapshot.hasData) return const Text(' ');
           return ListView.builder(
-            itemCount: snapshot.data['currentHolding'].length,
+            itemCount: snapshot.data['currentHoldings'].length,
             itemBuilder: (context, index) => _listItemBuilder(
-                context, snapshot.data['currentHolding'][index]),
+                context, snapshot.data['currentHoldings'][index]),
             itemExtent: 95,
           );
         },

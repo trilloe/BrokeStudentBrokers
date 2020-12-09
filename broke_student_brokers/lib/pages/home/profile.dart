@@ -15,9 +15,9 @@ class _ProfileState extends State<Profile> {
       child: Column(
         children: [
           Container(
-            height: 200,
+            height: 170,
             child: AspectRatio(
-              aspectRatio: 2.4,
+              aspectRatio: 3,
               child: Container(
                 margin: EdgeInsets.all(5),
                 decoration: const BoxDecoration(
@@ -84,7 +84,7 @@ class _ProfileState extends State<Profile> {
                                 flex: 1,
                                 child: Container(
                                   child: Text(
-                                    document['ticker'],
+                                    document['symbol'],
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white,
@@ -98,7 +98,10 @@ class _ProfileState extends State<Profile> {
                                 flex: 1,
                                 child: Container(
                                   child: Text(
-                                    document['time'].toString(),
+                                    document['submitted_at']
+                                        .split('T')[1]
+                                        .split('.')[0],
+                                    // document['time'].toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white,
@@ -112,7 +115,19 @@ class _ProfileState extends State<Profile> {
                                 flex: 1,
                                 child: Container(
                                   child: Text(
-                                    document['date'].toString(),
+                                    // document['date'].toString(),
+                                    document['submitted_at']
+                                            .split('T')[0]
+                                            .split('-')[2] +
+                                        '-' +
+                                        document['submitted_at']
+                                            .split('T')[0]
+                                            .split('-')[1] +
+                                        '-' +
+                                        document['submitted_at']
+                                            .split('T')[0]
+                                            .split('-')[0],
+
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white,
@@ -133,10 +148,9 @@ class _ProfileState extends State<Profile> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    right: 0, left: 12, top: 20, bottom: 0),
+                                    right: 0, left: 20, top: 20, bottom: 0),
                                 child: Text(
-                                  'Order ID - ' +
-                                      document['orderid'].toString(),
+                                  'Order ID - ' + document['id'].toString(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: "Roboto",
@@ -148,11 +162,16 @@ class _ProfileState extends State<Profile> {
                                 padding: const EdgeInsets.only(
                                     right: 15, left: 0, top: 20, bottom: 0),
                                 child: Text(
-                                  'Status : ' + document['status'],
+                                  document['status'] == 'new'
+                                      ? 'Status : Ongoing'
+                                      : 'Status : ' + document['status'],
                                   style: TextStyle(
-                                      color: document['status'] == 'In Progress'
+                                      color: document['status'] == 'new'
                                           ? Color(0xffEA8559)
-                                          : Color(0xff92FF9A),
+                                          // : Color(0xff92FF9A),
+                                          : document['status'] == 'canceled'
+                                              ? Colors.red
+                                              : Color(0xff92FF9A),
                                       fontFamily: "Roboto",
                                       fontSize: 11,
                                       fontWeight: FontWeight.w400),
@@ -165,23 +184,11 @@ class _ProfileState extends State<Profile> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    right: 0, left: 12, top: 17, bottom: 0),
+                                    right: 0, left: 20, top: 17, bottom: 0),
                                 child: Text(
-                                  'Created At : ' +
-                                      document['createdat'].toString(),
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: "Roboto",
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w300),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 15, left: 0, top: 17, bottom: 0),
-                                child: Text(
-                                  'Quantity : ' +
-                                      document['quantity'].toString(),
+                                  // 'Created At : ' +
+                                  //     document['created_at'].toString(),
+                                  "Filled Quantity : " + document['filled_qty'],
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: "Roboto",
@@ -189,36 +196,21 @@ class _ProfileState extends State<Profile> {
                                       fontWeight: FontWeight.w700),
                                 ),
                               ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    right: 0, left: 12, top: 7, bottom: 0),
-                                child: Text(
-                                  'Submitted At : ' +
-                                      document['submittedat'].toString(),
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: "Roboto",
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w300),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 15, left: 0, top: 7, bottom: 0),
+                                    right: 23, left: 0, top: 17, bottom: 0),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.white),
+                                      border: Border.all(
+                                          color: document['status'] == 'new'
+                                              ? Color(0xffEA8559)
+                                              : Color(0xff92FF9A)),
                                       borderRadius: BorderRadius.circular(5)),
                                   child: Padding(
                                     padding: const EdgeInsets.only(
                                         right: 15, left: 15, top: 2, bottom: 3),
                                     child: Text(
-                                      document['buyorsell'],
+                                      document['side'],
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontFamily: "Roboto",
@@ -226,6 +218,18 @@ class _ProfileState extends State<Profile> {
                                           fontWeight: FontWeight.w700),
                                     ),
                                   ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 15, left: 0, top: 17, bottom: 0),
+                                child: Text(
+                                  'Quantity : ' + document['qty'].toString(),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: "Roboto",
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w700),
                                 ),
                               ),
                             ],
@@ -252,7 +256,7 @@ class _ProfileState extends State<Profile> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('testStocks')
-            .doc("Main_Test")
+            .doc(_auth.currentUser.uid.toString())
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return const Text(' ');
@@ -260,7 +264,7 @@ class _ProfileState extends State<Profile> {
             itemCount: snapshot.data['orders'].length,
             itemBuilder: (context, index) =>
                 _listItemBuilder(context, snapshot.data['orders'][index]),
-            itemExtent: 200,
+            itemExtent: 170,
           );
         },
       ),
