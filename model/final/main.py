@@ -22,7 +22,7 @@ account = api.get_account()
 portfolio = api.list_positions()
 
 # Firebase Connection
-cred = credentials.Certificate('./service-account.json')
+cred = credentials.Certificate('./service_account.json')
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
@@ -31,14 +31,14 @@ db = firestore.client()
 # TODO: cache old data [remove old, add current day]
 tickers = gt.get_tickers(NYSE=True, NASDAQ=True, AMEX=True)
 
-end_date = datetime.today()
-start_date = end_date - timedelta(days=30)
-data = yf.download(tickers=tickers, start=start_date, end=end_date, interval='1d', group_by='ticker')
+# end_date = datetime.today()
+# start_date = end_date - timedelta(days=30)
+# data = yf.download(tickers=tickers, start=start_date, end=end_date, interval='1d', group_by='ticker')
 
 # TEMP SAVE BLOCK
-# store = pd.HDFStore('data.h5')
+store = pd.HDFStore('data.h5')
 # store['data'] = data
-# data = store['data']
+data = store['data']
 
 # Calculate RSI
 rsi = {}
@@ -87,7 +87,7 @@ def place_order(symbol, side='buy', qty=1):
 
 
 # Getting user details from firebase 
-doc_ref = db.collection(u'testStocks').document(u'dVgoVj1WmoRKqtvVrwg5z0eCuR12')
+doc_ref = db.collection(u'testStocks').document(u'j8zxU61MJcR4O8iym6RAttESM2k1')
 doc = doc_ref.get()
 doc_dict =  doc.to_dict()
 
