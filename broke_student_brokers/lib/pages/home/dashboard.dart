@@ -8,6 +8,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'home.dart';
 import 'somethingWrong.dart';
 import 'loading.dart';
+import 'package:broke_student_brokers/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -277,18 +279,38 @@ class HoldingList extends StatefulWidget {
   _HoldingListState createState() => _HoldingListState();
 }
 
+// UserCredential result = await _auth.createUserWithEmailAndPassword(
+//           email: email, password: password);
+//       User user = result.user;
+// final FirebaseAuth _auth = FirebaseAuth.instance;
+
+// Stream<User> get user {
+//   return _auth.authStateChanges();
+// }
+
 class _HoldingListState extends State<HoldingList> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+    print(_auth.currentUser.uid.toString());
     return Scaffold(
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('testStocks').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('testStocks')
+            .doc(_auth.currentUser.uid.toString())
+            .snapshots(),
         builder: (context, snapshot) {
+          print('snapshot: ${snapshot.data['currentHolding']}');
+
           if (!snapshot.hasData) return const Text('Loading...');
           return ListView.builder(
-            itemCount: snapshot.data.documents.length,
+            // itemCount: snapshot.data.documents.length,
+            itemCount: snapshot.data['currentHolding'].length,
             itemBuilder: (context, index) =>
-                _listItemBuilder(context, snapshot.data.documents[index]),
+                // _listItemBuilder(context, snapshot.data.documents[index]),
+                _listItemBuilder(
+                    context, snapshot.data['currentHolding'][index]),
             itemExtent: 95,
           );
         },
@@ -298,7 +320,8 @@ class _HoldingListState extends State<HoldingList> {
 }
 
 @override
-Widget _listItemBuilder(BuildContext context, DocumentSnapshot document) {
+Widget _listItemBuilder(BuildContext context, Map document) {
+  print('TEST: ${document}');
   return Column(
     children: <Widget>[
       // MaterialButton(
@@ -323,8 +346,8 @@ Widget _listItemBuilder(BuildContext context, DocumentSnapshot document) {
               Padding(
                 padding: const EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 12.0),
                 child: Text(
-                  document['shareCount'].toString() +
-                      (document['shareCount'] == 1 ? ' Share' : ' Shares'),
+                  document['countStock'].toString() +
+                      (document['countStock'] == 1 ? ' Share' : ' Shares'),
                   style: TextStyle(fontSize: 13.0),
                 ),
               ),
@@ -347,13 +370,13 @@ Widget _listItemBuilder(BuildContext context, DocumentSnapshot document) {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Text(
-                  '\$ ' + document['currentHoldings'].toString(),
+                  '\$ ' + "Replace",
                   style: TextStyle(color: Color(0xFF73FC7D)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    '\$ ' + document['initialHoldings'].toString(),
+                    '\$ ' + document['initialValue'].toString(),
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

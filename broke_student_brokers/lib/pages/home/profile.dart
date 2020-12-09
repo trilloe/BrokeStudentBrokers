@@ -2,6 +2,9 @@ import 'package:broke_student_brokers/pages/home/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:broke_student_brokers/services/auth.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -16,7 +19,9 @@ class Profile extends StatefulWidget {
 // }
 
 class _ProfileState extends State<Profile> {
-  Widget _listItemBuilder(BuildContext context, DocumentSnapshot document) {
+  Widget _listItemBuilder(BuildContext context, Map document) {
+    print('TEST: ${document}');
+
     return Container(
       child: Column(
         children: [
@@ -261,19 +266,40 @@ class _ProfileState extends State<Profile> {
 //   }
 // }
 
+  // Stream<QuerySnapshot> getUserCurrentHoldings(BuildContext context) async* {
+  //   final uid = await Provider.of(context).auth.getCurrentUID();
+  //   yield* FirebaseFirestore.instance
+  //       .collection('testStocks')
+  //       .doc(uid)
+  //       .collection('currentHoldings')
+  //       .snapshots();
+  // }
+
+  // getUID(BuildContext context) async {
+  //   return await Provider.of(context).auth.getCurrentUID();
+  // }
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+    print(_auth.currentUser.uid.toString());
     return Scaffold(
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection('TransactionInfo')
+            // .collection('TransactionInfo')
+            .collection('testStocks')
+            .doc("Main_Test")
             .snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return const Text(' ');
+          print('snapshot: ${snapshot.data['orders']}');
+
+          if (!snapshot.hasData) return const Text('Loading...');
+          // List Data = snapshot.data.docs[2]['orders'];
           return ListView.builder(
-            itemCount: snapshot.data.documents.length,
+            itemCount: snapshot.data['orders'].length,
             itemBuilder: (context, index) =>
-                _listItemBuilder(context, snapshot.data.documents[index]),
+                _listItemBuilder(context, snapshot.data['orders'][index]),
             itemExtent: 200,
           );
         },
