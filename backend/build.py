@@ -25,6 +25,6 @@ def set_properties(project):
     project.build_depends_on("pandas")
     project.build_depends_on("talib-binary")
     project.build_depends_on("alpaca_trade_api")
-    project.set_property("smart_copy_resources", {
-        "src/main/resources/*": "./target/dist/backend-1.0.dev0/resources/",
-    })
+    # project.set_property("smart_copy_resources", {
+    #     "src/main/resources/*": "./target/dist/backend-1.0.dev0/resources/",
+    # })
