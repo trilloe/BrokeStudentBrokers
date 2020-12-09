@@ -292,9 +292,9 @@ class _ProfileState extends State<Profile> {
             .doc("Main_Test")
             .snapshots(),
         builder: (context, snapshot) {
-          print('snapshot: ${snapshot.data['orders']}');
+          // print('snapshot: ${snapshot.data['orders']}');
 
-          if (!snapshot.hasData) return const Text('Loading...');
+          if (!snapshot.hasData) return const Text(' ');
           // List Data = snapshot.data.docs[2]['orders'];
           return ListView.builder(
             itemCount: snapshot.data['orders'].length,

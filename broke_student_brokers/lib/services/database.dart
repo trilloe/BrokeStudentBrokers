@@ -24,7 +24,7 @@ class DatabaseService {
   }
 
   // stocks list from snapshot
-  List<Stocks> _stocksListFromSnapshot(QuerySnapshot snapshot) {
+  List<Stocks> stocksListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Stocks(
         balance: doc.data()['balance'] ?? 500,
@@ -39,6 +39,6 @@ class DatabaseService {
 
   // get stocks stream
   Stream<List<Stocks>> get stocks {
-    return stockCollection.snapshots().map(_stocksListFromSnapshot);
+    return stockCollection.snapshots().map(stocksListFromSnapshot);
   }
 }

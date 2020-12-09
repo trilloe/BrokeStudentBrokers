@@ -301,9 +301,9 @@ class _HoldingListState extends State<HoldingList> {
             .doc(_auth.currentUser.uid.toString())
             .snapshots(),
         builder: (context, snapshot) {
-          print('snapshot: ${snapshot.data['currentHolding']}');
+          // print('snapshot: ${snapshot.data['currentHolding']}');
 
-          if (!snapshot.hasData) return const Text('Loading...');
+          if (!snapshot.hasData) return const Text(' ');
           return ListView.builder(
             // itemCount: snapshot.data.documents.length,
             itemCount: snapshot.data['currentHolding'].length,

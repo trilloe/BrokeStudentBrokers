@@ -3,10 +3,12 @@ import 'package:broke_student_brokers/pages/home/dashboard.dart';
 import 'package:broke_student_brokers/pages/home/profile.dart';
 import 'package:broke_student_brokers/pages/home/settings.dart';
 import 'package:broke_student_brokers/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:broke_student_brokers/services/database.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -29,7 +31,7 @@ class _HomeState extends State<Home> {
 
   final PageStorageBucket bucket = PageStorageBucket();
 
-  bool bot_on = true; // stores state of bot, fetch from cloud
+  // bool bot_on = true; // stores state of bot, fetch from cloud
 
   // Map botState;
   // botOn() {
@@ -42,20 +44,42 @@ class _HomeState extends State<Home> {
   //   bot_on = botState['bot_on'];
   // }
 
+  bool bot_on;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(height: 80),
-      body: PageStorage(
-        child: currentScreen,
-        bucket: bucket,
-      ),
+      body: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('testStocks')
+              .doc(_auth.currentUser.uid.toString())
+              .snapshots(),
+          builder: (context, snapshot) {
+            print('snapshot: ${snapshot.data['botState']}');
+            bot_on = snapshot.data['botState'];
+            print('bot_on= $bot_on');
+            return PageStorage(
+              child: currentScreen,
+              bucket: bucket,
+            );
+          }),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.power_settings_new_outlined),
         backgroundColor: bot_on ? Color(0xFF73FC7D) : Colors.red,
         onPressed: () {
           setState(() {
             bot_on = !bot_on;
+            try {
+              FirebaseFirestore.instance
+                  .collection('testStocks')
+                  .doc(_auth.currentUser.uid.toString())
+                  .update({'botState': bot_on});
+            } catch (e) {
+              print(e.toString());
+            }
           });
         },
       ),
