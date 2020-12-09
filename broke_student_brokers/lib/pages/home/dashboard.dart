@@ -1,14 +1,9 @@
-import 'dart:collection';
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'home.dart';
 import 'somethingWrong.dart';
 import 'loading.dart';
-import 'package:broke_student_brokers/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Dashboard extends StatefulWidget {
@@ -218,75 +213,10 @@ class _DashboardState extends State<Dashboard> {
       getColors([0, 50, -30, 70, 20, 90, 0, -40, -20, 60, 75]);
 }
 
-// class GaugeChart extends StatelessWidget {
-//   final List<charts.Series> seriesList;
-//   final bool animate;
-
-//   GaugeChart(this.seriesList, {this.animate});
-
-//   /// Creates a [PieChart] with sample data and no transition.
-//   factory GaugeChart.withSampleData() {
-//     return new GaugeChart(
-//       _createSampleData(),
-//       // Disable animations for image tests.
-//       animate: false,
-//     );
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return new charts.PieChart(seriesList,
-//         animate: animate,
-//         // Configure the width of the pie slices to 30px. The remaining space in
-//         // the chart will be left as a hole in the center. Adjust the start
-//         // angle and the arc length of the pie so it resembles a gauge.
-//         defaultRenderer: new charts.ArcRendererConfig(
-//             arcRatio: 0.12, startAngle: 3 / 2 * pi, arcLength: 2 * pi));
-//   }
-
-//   /// Create one series with sample hard coded data.
-//   static List<charts.Series<GaugeSegment, String>> _createSampleData() {
-//     final data = [
-//       new GaugeSegment('GOOGL', 90, charts.Color(r: 89, g: 189, b: 204)),
-//       new GaugeSegment('FB', 90, charts.Color(r: 74, g: 143, b: 213)),
-//       new GaugeSegment('AAPL', 90, charts.Color(r: 255, g: 106, b: 129)),
-//       new GaugeSegment('TSLA', 90, charts.Color(r: 235, g: 75, b: 138)),
-//     ];
-
-//     return [
-//       new charts.Series<GaugeSegment, String>(
-//         id: 'Segments',
-//         domainFn: (GaugeSegment segment, _) => segment.segment,
-//         measureFn: (GaugeSegment segment, _) => segment.size,
-//         colorFn: (GaugeSegment segment, _) => segment.color,
-//         data: data,
-//       )
-//     ];
-//   }
-// }
-
-// /// Sample data type.
-// class GaugeSegment {
-//   final String segment;
-//   final int size;
-//   final charts.Color color;
-
-//   GaugeSegment(this.segment, this.size, this.color);
-// }
-
 class HoldingList extends StatefulWidget {
   @override
   _HoldingListState createState() => _HoldingListState();
 }
-
-// UserCredential result = await _auth.createUserWithEmailAndPassword(
-//           email: email, password: password);
-//       User user = result.user;
-// final FirebaseAuth _auth = FirebaseAuth.instance;
-
-// Stream<User> get user {
-//   return _auth.authStateChanges();
-// }
 
 class _HoldingListState extends State<HoldingList> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -301,16 +231,11 @@ class _HoldingListState extends State<HoldingList> {
             .doc(_auth.currentUser.uid.toString())
             .snapshots(),
         builder: (context, snapshot) {
-          // print('snapshot: ${snapshot.data['currentHolding']}');
-
           if (!snapshot.hasData) return const Text(' ');
           return ListView.builder(
-            // itemCount: snapshot.data.documents.length,
             itemCount: snapshot.data['currentHolding'].length,
-            itemBuilder: (context, index) =>
-                // _listItemBuilder(context, snapshot.data.documents[index]),
-                _listItemBuilder(
-                    context, snapshot.data['currentHolding'][index]),
+            itemBuilder: (context, index) => _listItemBuilder(
+                context, snapshot.data['currentHolding'][index]),
             itemExtent: 95,
           );
         },
@@ -324,12 +249,6 @@ Widget _listItemBuilder(BuildContext context, Map document) {
   print('TEST: ${document}');
   return Column(
     children: <Widget>[
-      // MaterialButton(
-      //   height: 0,
-      //   minWidth: 0,
-      //   elevation: 0,
-      //   onPressed: fetchData(),
-      // ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -357,7 +276,6 @@ Widget _listItemBuilder(BuildContext context, Map document) {
           Expanded(
               child: Container(
                   alignment: Alignment.center,
-                  // padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: AspectRatio(
                       aspectRatio: 4,
                       child: Container(
@@ -380,23 +298,11 @@ Widget _listItemBuilder(BuildContext context, Map document) {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Icon(
-                //     Icons.star_border,
-                //     size: 35.0,
-                //     color: Colors.grey,
-                //   ),
-                // ),
               ],
             ),
           ),
         ],
       ),
-      // Divider(
-      //   height: 2.0,
-      //   color: Colors.grey,
-      // )
     ],
   );
 }
@@ -495,19 +401,6 @@ LineChartData mainData() {
   );
 }
 
-//   fetchData() {
-//     FirebaseFirestore fs = FirebaseFirestore.instance;
-//     fs.collection('stocks').snapshots().listen((snapshot) {
-//       setState(() {
-//         for (var item in snapshot.docs) {
-//           stocks = item.data();
-//           _open.add(stocks);
-//         }
-//       });
-//     });
-//   }
-// }
-
 List<Color> getColors(data) {
   List<Color> li = [];
   for (var i = 0; i < data.length; i++) {
@@ -519,14 +412,3 @@ List<Color> getColors(data) {
   }
   return li;
 }
-
-// class Open {
-//   Open({this.name, this.numshares, this.price1, this.price2});
-
-//   String name;
-//   String numshares;
-//   String price1;
-//   String price2;
-// }
-
-// List _open = [];

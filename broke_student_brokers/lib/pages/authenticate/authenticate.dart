@@ -2,8 +2,6 @@ import 'package:broke_student_brokers/pages/authenticate/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:broke_student_brokers/pages/authenticate/register.dart';
 
-import 'package:flutter/material.dart';
-
 class Authenticate extends StatefulWidget {
   @override
   _AuthenticateState createState() => _AuthenticateState();

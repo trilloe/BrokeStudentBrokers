@@ -1,22 +1,11 @@
-import 'package:broke_student_brokers/pages/home/dashboard.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
-import 'package:broke_student_brokers/services/auth.dart';
 
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
 }
-
-// class _ProfileState extends State<Profile> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(child: Text('Profile Placeholder'));
-//   }
-// }
 
 class _ProfileState extends State<Profile> {
   Widget _listItemBuilder(BuildContext context, Map document) {
@@ -44,7 +33,6 @@ class _ProfileState extends State<Profile> {
                       Table(
                         children: [
                           TableRow(
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Flexible(
                                 flex: 1,
@@ -255,30 +243,6 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         body: ListView.builder(
-//       itemCount: _transactions.length,
-//       itemExtent: 200.0,
-//       itemBuilder: _listItemBuilder,
-//     ));
-//   }
-// }
-
-  // Stream<QuerySnapshot> getUserCurrentHoldings(BuildContext context) async* {
-  //   final uid = await Provider.of(context).auth.getCurrentUID();
-  //   yield* FirebaseFirestore.instance
-  //       .collection('testStocks')
-  //       .doc(uid)
-  //       .collection('currentHoldings')
-  //       .snapshots();
-  // }
-
-  // getUID(BuildContext context) async {
-  //   return await Provider.of(context).auth.getCurrentUID();
-  // }
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -287,15 +251,11 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
-            // .collection('TransactionInfo')
             .collection('testStocks')
             .doc("Main_Test")
             .snapshots(),
         builder: (context, snapshot) {
-          // print('snapshot: ${snapshot.data['orders']}');
-
           if (!snapshot.hasData) return const Text(' ');
-          // List Data = snapshot.data.docs[2]['orders'];
           return ListView.builder(
             itemCount: snapshot.data['orders'].length,
             itemBuilder: (context, index) =>
@@ -307,117 +267,3 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
-
-// class _ProfileState extends State<Profile> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//               child: Column(
-//                 children: [
-//                   Container(
-//                       height: 230,
-//                       child: AspectRatio(
-//                         aspectRatio: 2.25,
-//                         child: Container(
-//                           margin: EdgeInsets.all(10),
-//                           decoration: const BoxDecoration(
-//                               borderRadius: BorderRadius.all(
-//                                 Radius.circular(18),
-//                               ),
-//                               color: Color(0xff202020)),
-//                           child: Padding(
-//                             padding: const EdgeInsets.only(
-//                                 right: 16.0, left: 12.0, top: 24, bottom: 12),
-
-//                             child: Align(
-//                               alignment: Alignment.topLeft,
-//                               child: Text('transaction'),
-//                               alignment: Alignment.topRight,
-//                               child: Text('transaction'),
-//                             ),
-
-//                           ),
-//                         ),
-//                       )),
-
-//                 ],
-//               ),
-//             );
-//   }
-// }
-
-// class Transaction {
-//   const Transaction(
-//       {this.name,
-//       this.time,
-//       this.date,
-//       this.orderid,
-//       this.createdat,
-//       this.submittedat,
-//       this.status,
-//       this.quantity,
-//       this.buyorsell});
-
-//   final String name;
-//   final String time;
-//   final String date;
-//   final String orderid;
-//   final String createdat;
-//   final String submittedat;
-//   final String status;
-//   final String quantity;
-//   final String buyorsell;
-// }
-
-// final List<Transaction> _transactions = <Transaction>[
-//   Transaction(
-//       name: 'GOOGL',
-//       time: '16:50:32',
-//       date: '10/12/2020',
-//       orderid: '87456928459285',
-//       createdat: '2020-11-06T16:49:50.179665z',
-//       submittedat: '2020-11-06T16:50:32.179665z',
-//       status: 'In Progress',
-//       quantity: '5',
-//       buyorsell: 'SELL'),
-//   Transaction(
-//       name: 'AMZN',
-//       time: '16:48:32',
-//       date: '10/12/2020',
-//       orderid: '87456928459287',
-//       createdat: '2020-11-06T16:47:00.179665z',
-//       submittedat: '2020-11-06T16:48:00.179665z',
-//       status: 'Completed',
-//       quantity: '5',
-//       buyorsell: 'BUY'),
-//   Transaction(
-//       name: 'AMZN',
-//       time: '16:48:32',
-//       date: '10/12/2020',
-//       orderid: '87456928459287',
-//       createdat: '2020-11-06T16:47:00.179665z',
-//       submittedat: '2020-11-06T16:48:00.179665z',
-//       status: 'Completed',
-//       quantity: '5',
-//       buyorsell: 'BUY'),
-//   Transaction(
-//       name: 'AMZN',
-//       time: '16:48:32',
-//       date: '10/12/2020',
-//       orderid: '87456928459287',
-//       createdat: '2020-11-06T16:47:00.179665z',
-//       submittedat: '2020-11-06T16:48:00.179665z',
-//       status: 'Completed',
-//       quantity: '5',
-//       buyorsell: 'BUY'),
-//   Transaction(
-//       name: 'AMZN',
-//       time: '16:48:32',
-//       date: '10/12/2020',
-//       orderid: '87456928459287',
-//       createdat: '2020-11-06T16:47:00.179665z',
-//       submittedat: '2020-11-06T16:48:00.179665z',
-//       status: 'Completed',
-//       quantity: '5',
-//       buyorsell: 'BUY'),
-// ];

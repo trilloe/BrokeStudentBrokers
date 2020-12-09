@@ -8,8 +8,6 @@ class DatabaseService {
   // collection reference
   final CollectionReference stockCollection =
       FirebaseFirestore.instance.collection("testStocks");
-  // final CollectionReference userCollection =
-  //     FirebaseFirestore.instance.collection("userProfile");
 
   Future updateUserData(int balance, bool botState, List cumulativeCurrentValue,
       List currentHoldings, List orders, Map userDetails) async {

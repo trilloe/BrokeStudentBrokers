@@ -1,6 +1,5 @@
 import 'package:broke_student_brokers/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 ButtonStyle style = OutlinedButton.styleFrom(shape: StadiumBorder());
 
@@ -38,12 +37,6 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      // appBar: AppBar(
-      //   // backgroundColor: Colors.teal[300],
-      //   elevation: 0.0,
-      //   // title: Text('Sign-In to BrokeStudentBrokers'),
-      //   actions: <Widget>[],
-      // ),
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(

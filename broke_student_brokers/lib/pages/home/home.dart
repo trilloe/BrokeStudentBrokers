@@ -2,13 +2,10 @@ import 'package:broke_student_brokers/pages/home/chat.dart';
 import 'package:broke_student_brokers/pages/home/dashboard.dart';
 import 'package:broke_student_brokers/pages/home/profile.dart';
 import 'package:broke_student_brokers/pages/home/settings.dart';
-import 'package:broke_student_brokers/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:broke_student_brokers/services/database.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -30,23 +27,9 @@ class _HomeState extends State<Home> {
   Widget currentScreen = Dashboard();
 
   final PageStorageBucket bucket = PageStorageBucket();
-
-  // bool bot_on = true; // stores state of bot, fetch from cloud
-
-  // Map botState;
-  // botOn() {
-  //   FirebaseFirestore fs = FirebaseFirestore.instance;
-  //   fs.collection('botState').snapshots().listen((snapshot) {
-  //     setState(() {
-  //       botState = snapshot.docs[0].data();
-  //     });
-  //   });
-  //   bot_on = botState['bot_on'];
-  // }
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool bot_on = true;
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +77,6 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                // mainAxisAlignment: MainAxisAlignment,
                 children: [
                   MaterialButton(
                     minWidth: 100,
@@ -113,12 +95,6 @@ class _HomeState extends State<Home> {
                               ? Color(0xFF73FC7D)
                               : Colors.white,
                         ),
-                        // Text(
-                        //   'Dashboard',
-                        //   style: TextStyle(
-                        //       color:
-                        //           currentTab == 0 ? Colors.blue : Colors.grey),
-                        // )
                       ],
                     ),
                   ),
@@ -139,12 +115,6 @@ class _HomeState extends State<Home> {
                               ? Color(0xFF73FC7D)
                               : Colors.white,
                         ),
-                        // Text(
-                        //   'Chats',
-                        //   style: TextStyle(
-                        //       color:
-                        //           currentTab == 1 ? Colors.blue : Colors.grey),
-                        // )
                       ],
                     ),
                   ),
@@ -169,12 +139,6 @@ class _HomeState extends State<Home> {
                               ? Color(0xFF73FC7D)
                               : Colors.white,
                         ),
-                        // Text(
-                        //   'Profile',
-                        //   style: TextStyle(
-                        //       color:
-                        //           currentTab == 2 ? Colors.blue : Colors.grey),
-                        // )
                       ],
                     ),
                   ),
@@ -197,12 +161,6 @@ class _HomeState extends State<Home> {
                               ? Color(0xFF73FC7D)
                               : Colors.white,
                         ),
-                        // Text(
-                        //   'Settings',
-                        //   style: TextStyle(
-                        //       color:
-                        //           currentTab == 3 ? Colors.blue : Colors.grey),
-                        // )
                       ],
                     ),
                   )
@@ -218,7 +176,6 @@ class _HomeState extends State<Home> {
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
-  // final AuthService _auth = AuthService();
 
   CustomAppBar({Key key, @required this.height}) : super(key: key);
 
@@ -227,12 +184,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Column(
       children: [
         Container(
-          // color: Colors.grey[300],
           child: Padding(
             padding: EdgeInsets.only(top: 25),
             child: Container(
               height: this.height,
-              // color: Colors.blue,
               padding: EdgeInsets.only(left: 5, right: 5),
               child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -244,24 +199,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         onPressed: () {},
                       ),
                     ),
-                    // Expanded(
-                    //   child: Container(
-                    //     color: Colors.white,
-                    //     child: TextField(
-                    //       decoration: InputDecoration(
-                    //         hintText: "Search",
-                    //         contentPadding: EdgeInsets.all(10),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    // FlatButton.icon(
-                    //   icon: Icon(Icons.person),
-                    //   label: Text('Logout'),
-                    //   onPressed: () async {
-                    //     await _auth.signOut();
-                    //   },
-                    // ),
                     IconButton(
                       icon: Icon(Icons.account_circle),
                       onPressed: () {},
