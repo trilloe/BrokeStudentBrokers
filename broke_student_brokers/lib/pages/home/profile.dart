@@ -15,11 +15,11 @@ class _ProfileState extends State<Profile> {
       child: Column(
         children: [
           Container(
-            height: 170,
+            height: 180,
             child: AspectRatio(
-              aspectRatio: 3,
+              aspectRatio: 2.7,
               child: Container(
-                margin: EdgeInsets.all(5),
+                margin: EdgeInsets.only(right: 15, top: 15, left: 15),
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
@@ -202,7 +202,7 @@ class _ProfileState extends State<Profile> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                          color: document['status'] == 'new'
+                                          color: document['side'] == 'sell'
                                               ? Color(0xffEA8559)
                                               : Color(0xff92FF9A)),
                                       borderRadius: BorderRadius.circular(5)),
@@ -264,7 +264,7 @@ class _ProfileState extends State<Profile> {
             itemCount: snapshot.data['orders'].length,
             itemBuilder: (context, index) =>
                 _listItemBuilder(context, snapshot.data['orders'][index]),
-            itemExtent: 170,
+            itemExtent: 180,
           );
         },
       ),
