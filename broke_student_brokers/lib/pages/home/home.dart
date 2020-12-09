@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
   //   bot_on = botState['bot_on'];
   // }
 
-  bool bot_on;
+  bool bot_on = true;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -58,9 +58,10 @@ class _HomeState extends State<Home> {
               .doc(_auth.currentUser.uid.toString())
               .snapshots(),
           builder: (context, snapshot) {
-            print('snapshot: ${snapshot.data['botState']}');
+            if (!snapshot.hasData) return const Text(' ');
+            // print('snapshot: ${snapshot.data['botState']}');
             bot_on = snapshot.data['botState'];
-            print('bot_on= $bot_on');
+            // print('bot_on= $bot_on');
             return PageStorage(
               child: currentScreen,
               bucket: bucket,
