@@ -2,10 +2,9 @@ import 'package:broke_student_brokers/pages/home/chat.dart';
 import 'package:broke_student_brokers/pages/home/dashboard.dart';
 import 'package:broke_student_brokers/pages/home/profile.dart';
 import 'package:broke_student_brokers/pages/home/settings.dart';
-import 'package:broke_student_brokers/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget {
@@ -28,34 +27,43 @@ class _HomeState extends State<Home> {
   Widget currentScreen = Dashboard();
 
   final PageStorageBucket bucket = PageStorageBucket();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  bool bot_on = true; // stores state of bot, fetch from cloud
-
-  // Map botState;
-  // botOn() {
-  //   FirebaseFirestore fs = FirebaseFirestore.instance;
-  //   fs.collection('botState').snapshots().listen((snapshot) {
-  //     setState(() {
-  //       botState = snapshot.docs[0].data();
-  //     });
-  //   });
-  //   bot_on = botState['bot_on'];
-  // }
+  bool bot_on = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(height: 80),
-      body: PageStorage(
-        child: currentScreen,
-        bucket: bucket,
-      ),
+      body: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('testStocks')
+              .doc(_auth.currentUser.uid.toString())
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return const Text(' ');
+            // print('snapshot: ${snapshot.data['botState']}');
+            bot_on = snapshot.data['botState'];
+            // print('bot_on= $bot_on');
+            return PageStorage(
+              child: currentScreen,
+              bucket: bucket,
+            );
+          }),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.power_settings_new_outlined),
         backgroundColor: bot_on ? Color(0xFF73FC7D) : Colors.red,
         onPressed: () {
           setState(() {
             bot_on = !bot_on;
+            try {
+              FirebaseFirestore.instance
+                  .collection('testStocks')
+                  .doc(_auth.currentUser.uid.toString())
+                  .update({'botState': bot_on});
+            } catch (e) {
+              print(e.toString());
+            }
           });
         },
       ),
@@ -69,7 +77,6 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                // mainAxisAlignment: MainAxisAlignment,
                 children: [
                   MaterialButton(
                     minWidth: 100,
@@ -88,12 +95,6 @@ class _HomeState extends State<Home> {
                               ? Color(0xFF73FC7D)
                               : Colors.white,
                         ),
-                        // Text(
-                        //   'Dashboard',
-                        //   style: TextStyle(
-                        //       color:
-                        //           currentTab == 0 ? Colors.blue : Colors.grey),
-                        // )
                       ],
                     ),
                   ),
@@ -114,12 +115,6 @@ class _HomeState extends State<Home> {
                               ? Color(0xFF73FC7D)
                               : Colors.white,
                         ),
-                        // Text(
-                        //   'Chats',
-                        //   style: TextStyle(
-                        //       color:
-                        //           currentTab == 1 ? Colors.blue : Colors.grey),
-                        // )
                       ],
                     ),
                   ),
@@ -144,12 +139,6 @@ class _HomeState extends State<Home> {
                               ? Color(0xFF73FC7D)
                               : Colors.white,
                         ),
-                        // Text(
-                        //   'Profile',
-                        //   style: TextStyle(
-                        //       color:
-                        //           currentTab == 2 ? Colors.blue : Colors.grey),
-                        // )
                       ],
                     ),
                   ),
@@ -172,12 +161,6 @@ class _HomeState extends State<Home> {
                               ? Color(0xFF73FC7D)
                               : Colors.white,
                         ),
-                        // Text(
-                        //   'Settings',
-                        //   style: TextStyle(
-                        //       color:
-                        //           currentTab == 3 ? Colors.blue : Colors.grey),
-                        // )
                       ],
                     ),
                   )
@@ -193,7 +176,6 @@ class _HomeState extends State<Home> {
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
-  // final AuthService _auth = AuthService();
 
   CustomAppBar({Key key, @required this.height}) : super(key: key);
 
@@ -202,12 +184,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Column(
       children: [
         Container(
-          // color: Colors.grey[300],
           child: Padding(
             padding: EdgeInsets.only(top: 25),
             child: Container(
               height: this.height,
-              // color: Colors.blue,
               padding: EdgeInsets.only(left: 5, right: 5),
               child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -219,24 +199,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         onPressed: () {},
                       ),
                     ),
-                    // Expanded(
-                    //   child: Container(
-                    //     color: Colors.white,
-                    //     child: TextField(
-                    //       decoration: InputDecoration(
-                    //         hintText: "Search",
-                    //         contentPadding: EdgeInsets.all(10),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    // FlatButton.icon(
-                    //   icon: Icon(Icons.person),
-                    //   label: Text('Logout'),
-                    //   onPressed: () async {
-                    //     await _auth.signOut();
-                    //   },
-                    // ),
                     IconButton(
                       icon: Icon(Icons.account_circle),
                       onPressed: () {},

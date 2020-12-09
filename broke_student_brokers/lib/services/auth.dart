@@ -1,16 +1,8 @@
 import 'package:broke_student_brokers/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-
-// import 'package:broke_student_brokers/models/user.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  // // create user object based on firebase user
-  // User _userFromFirebaseUser(User user) {
-  //   return user != null ? User(uid: user.uid) : null;
-  // }
 
   // auth change user stream
   Stream<User> get user {

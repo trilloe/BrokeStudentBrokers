@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart';
 import 'package:broke_student_brokers/pages/home/deposit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:broke_student_brokers/services/auth.dart';
@@ -15,9 +13,6 @@ class _SettingState extends State<Setting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Settings'),
-      // ),
       body: SingleChildScrollView(
         child: Builder(
           builder: (context) => Container(
@@ -42,25 +37,6 @@ class _SettingState extends State<Setting> {
                             fontWeight: FontWeight.w700),
                       ),
                     ),
-                    // Padding(
-                    //   padding: EdgeInsets.only(left: 390, top: 10, right: 0),
-                    //   child: IconButton(
-                    //     icon: Icon(Icons.edit),
-                    //     onPressed: () => Deposit(),
-                    //   ),
-                    // ),
-                    // Padding(
-                    //   padding: EdgeInsets.only(left: 0, top: 10),
-                    //   child: Text(
-                    //     'EDIT',
-                    //     textAlign: TextAlign.right,
-                    //     style: TextStyle(
-                    //         color: Colors.white,
-                    //         fontFamily: "Roboto",
-                    //         fontSize: 14,
-                    //         fontWeight: FontWeight.w700),
-                    //   ),
-                    // ),
                   ],
                 ),
                 Column(
@@ -227,7 +203,6 @@ class _SettingState extends State<Setting> {
                                             ),
                                           ),
                                         ),
-
                                         Flexible(
                                           flex: 1,
                                           child: Container(
@@ -260,7 +235,6 @@ class _SettingState extends State<Setting> {
                                             ),
                                           ),
                                         ),
-
                                         Flexible(
                                           flex: 1,
                                           child: Container(
@@ -295,7 +269,6 @@ class _SettingState extends State<Setting> {
                                             ),
                                           ),
                                         ),
-
                                         Flexible(
                                           flex: 1,
                                           child: Container(
@@ -330,25 +303,6 @@ class _SettingState extends State<Setting> {
                                             ),
                                           ),
                                         ),
-
-                                        // Flexible(
-                                        //   flex: 1,
-                                        //   child: Container(
-                                        //     height: 20,
-                                        //   ),
-                                        // ),
-                                        // Flexible(
-                                        //   flex: 1,
-                                        //   child: Container(
-                                        //     height: 20,
-                                        //   ),
-                                        // ),
-                                        // Flexible(
-                                        //   flex: 1,
-                                        //   child: Container(
-                                        //     height: 20,
-                                        //   ),
-                                        // ),
                                       ],
                                     ),
                                     Row(
@@ -388,19 +342,6 @@ class _SettingState extends State<Setting> {
                                               ),
                                             ),
                                           ),
-
-                                          // Padding(
-                                          //   padding: EdgeInsets.only(
-                                          //       top: 20, bottom: 20),
-                                          //   child: Text(
-                                          //     'Select Amount',
-                                          //     textAlign: TextAlign.center,
-                                          //     style: TextStyle(
-                                          //         color: Colors.white,
-                                          //         fontFamily: "Roboto",
-                                          //         fontSize: 14,
-                                          //         fontWeight: FontWeight.w700),
-                                          //   ),
                                         ),
                                       ],
                                     ),
