@@ -1,4 +1,7 @@
+#!/usr/bin/env python3 
 from logic import filter_RSI, get_data_month, place_order, alpaca_connection 
+
+import pickle
 
 import firebase_admin
 from firebase_admin import credentials
@@ -6,6 +9,7 @@ from firebase_admin import firestore
 
 from get_all_tickers import get_tickers as gt
 import alpaca_trade_api as tradeapi
+from numpy.lib.npyio import load
 
 import pandas as pd
 import numpy as np
@@ -20,11 +24,12 @@ firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
-
 # Get all Tickers
-tickers = gt.get_tickers(NYSE=True, NASDAQ=True, AMEX=True)
+# tickers = list(gt.get_tickers(NYSE=True, NASDAQ=True, AMEX=True))
+f = load('tickers','rb')
+tickers = pickle.load(f)
+f.close()
 
-print(tickers)
 
 # Get Data for the past 30 days for all tickers
 data = get_data_month(tickers=tickers)

@@ -1,3 +1,4 @@
+#!/usr/bin/env python 
 import alpaca_trade_api as tradeapi
 
 import firebase_admin
