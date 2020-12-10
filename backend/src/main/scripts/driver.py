@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from logic import filter_RSI, get_data_month, place_order, alpaca_connection 
 
 import firebase_admin
