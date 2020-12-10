@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!var/lib/jenkins/workspace/BackendExecutor/pyexec/bin python3
 
 from logic import filter_RSI, get_data_month, place_order, alpaca_connection 
 
@@ -26,8 +26,12 @@ db = firestore.client()
 # Get all Tickers
 tickers = gt.get_tickers(NYSE=True, NASDAQ=True, AMEX=True)
 
+print(tickers)
+
 # Get Data for the past 30 days for all tickers
 data = get_data_month(tickers=tickers)
+
+print(data)
 
 # store = pd.HDFStore('data.h5')
 # # store['new_data'] = data
@@ -104,6 +108,7 @@ for user in user_references:
                         if tick in holding.keys():
                             holding['countStock'] += 1
                             holding['initalValue'] += currentPrice
+                            holding['currentValue'] += currentPrice
                             tickExists = True
                             break
                     # If currently not owned
@@ -111,7 +116,9 @@ for user in user_references:
                         currentHoldings.append({
                             'countStock' : 1,
                             'initialValue' : currentPrice,
-                            'ticker': tick})
+                            'ticker': tick,
+                            'currentValue': currentPrice
+                            })
 
             # Sell stock deemed to be sold if in portfolio
             for position in portfolio:
@@ -124,7 +131,7 @@ for user in user_references:
 
             orders = api.list_orders( 
                 status='all',
-                limit=3,
+                limit=100,
                 nested=True  # show nested multi-leg orders
             )
 
