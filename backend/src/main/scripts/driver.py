@@ -26,7 +26,7 @@ db = firestore.client()
 
 # Get all Tickers
 # tickers = list(gt.get_tickers(NYSE=True, NASDAQ=True, AMEX=True))
-f = load('tickers','rb')
+f = open('tickers','rb')
 tickers = pickle.load(f)
 f.close()
 
