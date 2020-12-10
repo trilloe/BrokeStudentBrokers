@@ -251,7 +251,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    print(_auth.currentUser.uid.toString());
+    print("USER INFO");
+    print(_auth.currentUser);
     return Scaffold(
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
