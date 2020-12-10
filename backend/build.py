@@ -3,6 +3,7 @@ from pybuilder.core import use_plugin, init
 
 use_plugin("python.core")
 use_plugin("python.unittest")
+use_plugin("python.install_dependencies")
 use_plugin("python.flake8")
 use_plugin("python.coverage")
 use_plugin("python.distutils")
@@ -19,13 +20,13 @@ def set_properties(project):
 
 @init
 def set_properties(project):
-    project.version = "1.2"
+    project.version = "1.3"
     project.set_property("coverage_break_build", False)
-    project.build_depends_on("numpy")
-    project.build_depends_on("datetime")
-    project.build_depends_on("pandas")
-    project.build_depends_on("talib-binary")
-    project.build_depends_on("alpaca_trade_api")
+    project.depends_on("numpy")
+    project.depends_on("datetime")
+    project.depends_on("pandas")
+    project.depends_on("talib-binary")
+    project.depends_on("alpaca_trade_api")
     # project.set_property("smart_copy_resources", {
     #     "src/main/resources/*": "./target/dist/backend-1.0.dev0/resources/",
     # })
