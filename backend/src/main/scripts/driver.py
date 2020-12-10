@@ -104,6 +104,7 @@ for user in user_references:
                         if tick in holding.keys():
                             holding['countStock'] += 1
                             holding['initalValue'] += currentPrice
+                            holding['currentValue'] += currentPrice
                             tickExists = True
                             break
                     # If currently not owned
@@ -111,7 +112,9 @@ for user in user_references:
                         currentHoldings.append({
                             'countStock' : 1,
                             'initialValue' : currentPrice,
-                            'ticker': tick})
+                            'ticker': tick,
+                            'currentValue': currentPrice
+                            })
 
             # Sell stock deemed to be sold if in portfolio
             for position in portfolio:
