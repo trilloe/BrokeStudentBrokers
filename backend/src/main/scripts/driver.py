@@ -26,8 +26,12 @@ db = firestore.client()
 # Get all Tickers
 tickers = gt.get_tickers(NYSE=True, NASDAQ=True, AMEX=True)
 
+print(tickers)
+
 # Get Data for the past 30 days for all tickers
 data = get_data_month(tickers=tickers)
+
+print(data)
 
 # store = pd.HDFStore('data.h5')
 # # store['new_data'] = data

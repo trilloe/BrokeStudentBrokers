@@ -20,12 +20,12 @@ def set_properties(project):
 
 @init
 def set_properties(project):
-    project.version = "1.5"
+    project.version = "1.6"
     project.set_property("coverage_break_build", False)
     project.depends_on("numpy")
     project.depends_on("datetime")
     project.depends_on("pandas")
-    project.depends_on("talib-binary")
+    # project.depends_on("talib-binary")
     project.depends_on("alpaca_trade_api")
     project.depends_on("get_all_tickers")
     project.depends_on("yfinance")
