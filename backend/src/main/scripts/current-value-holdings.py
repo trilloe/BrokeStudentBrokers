@@ -48,6 +48,7 @@ for doc in docs:
 
                 # Last Market Price for Ticker
                 last_price = api.get_last_quote(element['ticker']).__dict__['_raw']['bidprice']
+                
                 # Total Value of Holding in Ticker
                 total_value = last_price * element['countStock']
 
@@ -70,6 +71,15 @@ for doc in docs:
                 'date': datetime.today()
             }
         
+        # For updating orders
+        orders = api.list_orders( 
+                status='all',
+                limit=100,
+                nested=True  # show nested multi-leg orders
+            )
+
+        list_orders = [i.__dict__['_raw'] for i in orders]
+        
         # If first entry for the day
         if (len(cumulativeCurrentValue) == 0 or cumulativeCurrentValue[-1]['date'].date() != datetime.today().date()):
             # Debug print for portfolio value
@@ -80,7 +90,9 @@ for doc in docs:
 
             user_ref.update({
                 'currentHoldings': currentHoldings,
-                'cumulativeCurrentValue': firestore.ArrayUnion([cumulativeCurrentValue_today])
+                'cumulativeCurrentValue': firestore.ArrayUnion([cumulativeCurrentValue_today]),
+                'orders': list_orders,
+                'balance': float(api.get_account().__dict__['_raw']['buying_power']),
             }) 
 
         # If updating the entry for today
@@ -94,7 +106,9 @@ for doc in docs:
             cumulativeCurrentValue[-1] = cumulativeCurrentValue_today
             user_ref.update({
                 'currentHoldings': currentHoldings,
-                'cumulativeCurrentValue': cumulativeCurrentValue
+                'cumulativeCurrentValue': cumulativeCurrentValue,
+                'orders': list_orders,
+                'balance': float(api.get_account().__dict__['_raw']['buying_power']),
             }) 
 
 

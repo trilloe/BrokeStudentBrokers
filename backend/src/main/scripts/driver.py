@@ -131,7 +131,7 @@ for user in user_references:
 
             orders = api.list_orders( 
                 status='all',
-                limit=3,
+                limit=100,
                 nested=True  # show nested multi-leg orders
             )
 
