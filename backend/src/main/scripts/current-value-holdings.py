@@ -1,3 +1,4 @@
+#!var/lib/jenkins/workspace/BackendExecutor/pyexec/bin
 import alpaca_trade_api as tradeapi
 
 import firebase_admin
@@ -15,7 +16,7 @@ api = tradeapi.REST(key_id=api_key_id,secret_key=api_secret, api_version='v2', b
 
 
 # Firebase connection
-cred = credentials.Certificate('model/Firebase Testing/service_account.json')
+cred = credentials.Certificate('service_account.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
