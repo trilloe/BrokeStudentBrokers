@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!var/lib/jenkins/workspace/BackendExecutor/pyexec/bin python3
 
 from logic import filter_RSI, get_data_month, place_order, alpaca_connection 
 
