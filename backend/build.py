@@ -20,7 +20,7 @@ def set_properties(project):
 
 @init
 def set_properties(project):
-    project.version = "1.7"
+    project.version = "1.8"
     project.set_property("coverage_break_build", False)
     project.depends_on("numpy")
     project.depends_on("datetime")
