@@ -36,6 +36,7 @@ print("DB Initiated")
 # tickers = list(gt.get_tickers(NYSE=True, NASDAQ=True, AMEX=True))
 f = open('tickers','rb')
 tickers = pickle.load(f)
+tickers = tickers[:50]
 f.close()
 
 print(tickers)
