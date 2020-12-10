@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:broke_student_brokers/pages/home/deposit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,8 +11,64 @@ class Setting extends StatefulWidget {
 
 class _SettingState extends State<Setting> {
   final AuthService _auth = AuthService();
+  final FirebaseAuth _authUser = FirebaseAuth.instance;
+
+  Future<String> createAlertDialog(BuildContext context) {
+    TextEditingController controllerOne = TextEditingController();
+    TextEditingController controllerTwo = TextEditingController();
+    TextEditingController controllerThree = TextEditingController();
+
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("                    Edit Details",
+                style: TextStyle(color: Color(0xffFF5D5D))),
+            content: AspectRatio(
+              aspectRatio: 1.5,
+              child: Container(
+                child: Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Text("Name"),
+                  ),
+                  TextField(
+                    controller: controllerOne,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: Text("Email"),
+                  ),
+                  TextField(
+                    controller: controllerTwo,
+                  ),
+                ]),
+              ),
+            ),
+            actions: [
+              MaterialButton(
+                onPressed: () {
+                  _authUser.currentUser.updateProfile(
+                      displayName: controllerOne.text.toString());
+                  _authUser.currentUser
+                      .updateEmail(controllerTwo.text.toString());
+                  Navigator.of(context).pop(controllerOne.text.toString());
+
+                  // print("USER DEETS");
+                  // print(_authUser.currentUser);
+                },
+                elevation: 5.0,
+                child: Text("Submit"),
+              )
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("USER DEETS");
+    print(_authUser.currentUser);
     return Scaffold(
       body: SingleChildScrollView(
         child: Builder(
@@ -23,7 +80,12 @@ class _SettingState extends State<Setting> {
                     Expanded(child: Container()),
                     IconButton(
                       icon: Icon(Icons.edit),
-                      onPressed: () => Deposit(),
+                      onPressed: () => {
+                        createAlertDialog(context).then((onValue) {
+                          Scaffold.of(context).showSnackBar(
+                              SnackBar(content: Text("Updated Details")));
+                        })
+                      },
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 0, top: 10, right: 20),
@@ -176,7 +238,7 @@ class _SettingState extends State<Setting> {
                                           child: Container(
                                             height: 60,
                                             child: AspectRatio(
-                                              aspectRatio: 1.75,
+                                              aspectRatio: 1.6,
                                               child: Container(
                                                 margin: EdgeInsets.all(5),
                                                 decoration: const BoxDecoration(
@@ -208,7 +270,7 @@ class _SettingState extends State<Setting> {
                                           child: Container(
                                             height: 60,
                                             child: AspectRatio(
-                                              aspectRatio: 1.75,
+                                              aspectRatio: 1.6,
                                               child: Container(
                                                 margin: EdgeInsets.all(5),
                                                 decoration: const BoxDecoration(
@@ -240,7 +302,7 @@ class _SettingState extends State<Setting> {
                                           child: Container(
                                             height: 60,
                                             child: AspectRatio(
-                                              aspectRatio: 1.75,
+                                              aspectRatio: 1.6,
                                               child: Container(
                                                   margin: EdgeInsets.all(5),
                                                   decoration:
@@ -274,7 +336,7 @@ class _SettingState extends State<Setting> {
                                           child: Container(
                                             height: 60,
                                             child: AspectRatio(
-                                              aspectRatio: 1.75,
+                                              aspectRatio: 1.6,
                                               child: Container(
                                                   margin: EdgeInsets.all(5),
                                                   decoration:
@@ -314,7 +376,7 @@ class _SettingState extends State<Setting> {
                                           child: Container(
                                             height: 60,
                                             child: AspectRatio(
-                                              aspectRatio: 7,
+                                              aspectRatio: 6.45,
                                               child: Container(
                                                 margin: EdgeInsets.all(5),
                                                 decoration: const BoxDecoration(
