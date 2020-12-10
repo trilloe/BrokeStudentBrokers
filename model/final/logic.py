@@ -70,3 +70,6 @@ def place_order(api, symbol, side='buy', qty=1):
 	return 1
 
 
+
+
+

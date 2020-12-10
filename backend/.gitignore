@@ -1,0 +1,6 @@
+__pycache__
+.pybuilder
+dist
+docs
+target
+src/main/python/resources/*
