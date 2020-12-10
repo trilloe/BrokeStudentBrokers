@@ -19,6 +19,7 @@ def set_properties(project):
 
 @init
 def set_properties(project):
+    project.version = "1.1"
     project.set_property("coverage_break_build", False)
     project.build_depends_on("numpy")
     project.build_depends_on("datetime")
