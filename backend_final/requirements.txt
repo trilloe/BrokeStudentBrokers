@@ -1,0 +1,8 @@
+talib-binary
+firebase-admin
+datetime
+numpy
+alpaca_trade_api
+pandas
+get_all_tickers
+yfinance

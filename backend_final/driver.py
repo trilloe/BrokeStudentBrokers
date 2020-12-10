@@ -10,6 +10,7 @@ import alpaca_trade_api as tradeapi
 import pandas as pd
 import numpy as np
 
+import logging
 
 APCA_API_BASE_URL = "https://paper-api.alpaca.markets"
 
@@ -53,6 +54,7 @@ to_buy, to_sell = filter_RSI(tickers=tickers, data=data)
 
 print(to_buy)
 print(to_sell)
+logging.log
 
 
 # Running Script for Every User in the Database
