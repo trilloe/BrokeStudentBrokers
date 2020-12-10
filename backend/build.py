@@ -28,7 +28,7 @@ def set_properties(project):
     project.depends_on("talib-binary")
     project.depends_on("alpaca_trade_api")
     project.depends_on("get_all_tickers")
-    project.depends_on("yfinances")
+    project.depends_on("yfinance")
     # project.set_property("smart_copy_resources", {
     #     "src/main/resources/*": "./target/dist/backend-1.0.dev0/resources/",
     # })
