@@ -7,7 +7,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-from get_all_tickers import get_tickers as gt
+# from get_all_tickers import get_tickers as gt
 import alpaca_trade_api as tradeapi
 from numpy.lib.npyio import load
 
