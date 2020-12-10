@@ -14,8 +14,65 @@ final FirebaseAuth _authUser = FirebaseAuth.instance;
 final AuthService _auth = AuthService();
 
 class _SettingState extends State<Setting> {
+  final AuthService _auth = AuthService();
+  final FirebaseAuth _authUser = FirebaseAuth.instance;
+
+  Future<String> createAlertDialog(BuildContext context) {
+    TextEditingController controllerOne = TextEditingController();
+    TextEditingController controllerTwo = TextEditingController();
+
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("                    Edit Details",
+                style: TextStyle(color: Color(0xffFF5D5D))),
+            content: AspectRatio(
+              aspectRatio: 1.5,
+              child: Container(
+                child: Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Text("Name"),
+                  ),
+                  TextField(
+                    controller: controllerOne,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: Text("Email"),
+                  ),
+                  TextField(
+                    controller: controllerTwo,
+                  ),
+                ]),
+              ),
+            ),
+            actions: [
+              MaterialButton(
+                onPressed: () {
+                  _authUser.currentUser.updateProfile(
+                      displayName: controllerOne.text.toString());
+                  _authUser.currentUser
+                      .updateEmail(controllerTwo.text.toString());
+                  Navigator.of(context).pop(controllerOne.text.toString());
+
+                  // print("USER DEETS");
+                  // print(_authUser.currentUser);
+                },
+                elevation: 5.0,
+                child: Text("Submit"),
+              )
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController depositController = TextEditingController();
+    print("USER DEETS");
+    print(_authUser.currentUser);
     return Scaffold(
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
@@ -34,7 +91,12 @@ class _SettingState extends State<Setting> {
                           Expanded(child: Container()),
                           IconButton(
                             icon: Icon(Icons.edit),
-                            onPressed: () => Deposit(),
+                            onPressed: () => {
+                              createAlertDialog(context).then((onValue) {
+                                Scaffold.of(context).showSnackBar(
+                                    SnackBar(content: Text("Updated Details")));
+                              })
+                            },
                           ),
                           Padding(
                             padding:
@@ -80,9 +142,19 @@ class _SettingState extends State<Setting> {
                                     padding: EdgeInsets.only(top: 20),
                                     child: Text(
                                       // 'Shaurya Srivastava',
-                                      _authUser.currentUser.email
-                                          .split("@")[0]
-                                          .toUpperCase(),
+                                      // _authUser.currentUser.email
+                                      //     .split("@")[0]
+                                      //     .toUpperCase(),
+                                      _authUser.currentUser.displayName == '' ||
+                                              _authUser.currentUser
+                                                      .displayName ==
+                                                  null
+                                          ? _authUser.currentUser.email
+                                              .split("@")[0]
+                                              .toUpperCase()
+                                          : _authUser.currentUser.displayName
+                                              .toUpperCase(),
+
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -100,23 +172,6 @@ class _SettingState extends State<Setting> {
                                     padding: EdgeInsets.only(top: 2),
                                     child: Text(
                                       _authUser.currentUser.email,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: "Roboto",
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 2),
-                                    child: Text(
-                                      '+91 8860599488',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -407,6 +462,8 @@ class _SettingState extends State<Setting> {
                                                         padding:
                                                             EdgeInsets.all(3),
                                                         child: TextField(
+                                                          controller:
+                                                              depositController,
                                                           keyboardType:
                                                               TextInputType
                                                                   .number,
@@ -417,6 +474,8 @@ class _SettingState extends State<Setting> {
                                                                           color:
                                                                               Color(0xffCECECE)))),
                                                           style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
                                                               decoration:
                                                                   TextDecoration
                                                                       .none),
@@ -546,7 +605,23 @@ class _SettingState extends State<Setting> {
                                                   child: AspectRatio(
                                                     aspectRatio: 2.5,
                                                     child: GestureDetector(
-                                                      onTap: () => {},
+                                                      onTap: () => {
+                                                        FirebaseFirestore
+                                                            .instance
+                                                            .collection(
+                                                                'testStocks')
+                                                            .doc(_authUser
+                                                                .currentUser.uid
+                                                                .toString())
+                                                            .update({
+                                                          'balance': snapshot
+                                                                      .data[
+                                                                  'balance'] +
+                                                              double.parse(
+                                                                  depositController
+                                                                      .text)
+                                                        })
+                                                      },
                                                       child: Container(
                                                         margin:
                                                             EdgeInsets.all(5),

@@ -288,8 +288,11 @@ Widget _listItemBuilder(BuildContext context, Map document) {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Text(
-                  '\$ ' + "Replace",
-                  style: TextStyle(color: Color(0xFF73FC7D)),
+                  '\$ ' + document['currentValue'].toString(),
+                  style: TextStyle(
+                      color: document['currentValue'] < document['initialValue']
+                          ? Colors.red
+                          : Color(0xFF73FC7D)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
