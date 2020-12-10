@@ -9,7 +9,7 @@ use_plugin("python.distutils")
 use_plugin("pypi:pybuilder_smart_copy_resources")
 
 
-name = "backend"
+name = "bsb_backend_pack"
 default_task = "publish"
 
 
@@ -25,7 +25,6 @@ def set_properties(project):
     project.build_depends_on("pandas")
     project.build_depends_on("talib-binary")
     project.build_depends_on("alpaca_trade_api")
-    project.build_depends_on("firebase-admin")
     # project.set_property("smart_copy_resources", {
     #     "src/main/resources/*": "./target/dist/backend-1.0.dev0/resources/",
     # })

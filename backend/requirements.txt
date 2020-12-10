@@ -5,4 +5,4 @@ alpaca_trade_api
 pandas
 matplotlib
 pybuilder
-firebase-admin
+twine
