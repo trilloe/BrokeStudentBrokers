@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from logic import filter_RSI, get_data_month, place_order, alpaca_connection 
 
 import firebase_admin
@@ -15,7 +17,7 @@ APCA_API_BASE_URL = "https://paper-api.alpaca.markets"
 
 
 # Initializing Firestore
-cred = credentials.Certificate('../Lib/site-packages/backend/resources/service_account.json')
+cred = credentials.Certificate('service_account.json')
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
@@ -25,12 +27,12 @@ db = firestore.client()
 tickers = gt.get_tickers(NYSE=True, NASDAQ=True, AMEX=True)
 
 # Get Data for the past 30 days for all tickers
-# data = get_data_month(tickers=tickers)
+data = get_data_month(tickers=tickers)
 
-store = pd.HDFStore('../Lib/site-packages/backendresources/data.h5')
-# store['new_data'] = data
+# store = pd.HDFStore('data.h5')
+# # store['new_data'] = data
 
-data = store['new_data']
+# data = store['new_data']
 
 last_empty = True
 
