@@ -2,17 +2,41 @@ from threading import currentThread
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-import datetime
+from datetime import datetime, timedelta
 import alpaca_trade_api as tradeapi
 
+import yfinance as yf
+
 # Use a service account
-cred = credentials.Certificate('./service-account.json')
+cred = credentials.Certificate('./model/final/service_account.json')
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
+collection_ref = db.collection(u'testStocks')
+docs = db.collection(u'testStocks').stream()
 
-doc_ref = db.collection(u'testStocks').document(u'John Doe')
+doc_ref = db.collection(u'testStocks').document(u'83kDrsNaTFZNudyjpA5DoaSSsBC2')
+
+
+# Finds last 7 day data for all tickers and writes
+for doc in docs:
+	if (doc.id == u'83kDrsNaTFZNudyjpA5DoaSSsBC2'):
+		user_ref = collection_ref.document(doc.id)
+		currentHoldings = doc.to_dict()['currentHoldings']
+		
+		for index in range(len(currentHoldings)):
+			element = currentHoldings[index]
+
+			data = yf.download(element['ticker'], period='1mo')
+			last_7days = data.tail(7)['Close'].to_list()
+
+			currentHoldings[index]['last_7days'] = last_7days
+
+		user_ref.update({
+                'currentHoldings': currentHoldings,
+            }) 
+
 
 # print(doc_ref.get().to_dict())
 
@@ -61,13 +85,13 @@ def place_order(symbol, side, qty=5): # Buy/Sell stocks
 		print("Something went wrong")
 		return 0
 	# print("Successful")
-	# return 1
+# 	# return 1
 
-order_deets = place_order('AMZN','buy')
+# order_deets = place_order('AMZN','buy')
 
-doc = doc_ref.get()
-dicties =  doc.to_dict()
-orders = dicties['orders']
-orders.append(order_deets.__dict__['_raw'])
-print(doc_ref.update({'orders':orders}))
+# doc = doc_ref.get()
+# dicties =  doc.to_dict()
+# orders = dicties['orders']
+# orders.append(order_deets.__dict__['_raw'])
+# print(doc_ref.update({'orders':orders}))
 
