@@ -89,7 +89,7 @@ for user in user_references:
 
 
             # Get Information about User
-            maximum_spendable_amount = doc_dict['balance']
+            # maximum_spendable_amount = doc_dict['balance']
             currentHoldings = doc_dict['currentHoldings']
             userDetails = doc_dict['userDetails']
 
@@ -100,18 +100,20 @@ for user in user_references:
             # Buy stocks deem to be purchased and modify currentHoldings
             for tick in to_buy:
 
-                print(tick)
+                maximum_spendable_amount = float(api.get_account().__dict__['_raw']['buying_power'])
+
 
                 # TODO : Write if condition to check if current price of Stock 
                 # is < maximum_spendable_amount
                 currentPrice = api.get_last_quote(tick).__dict__['_raw']['bidprice']
 
-                print(currentPrice)
+                print("Maximum Spendable Amount is {0}".format(maximum_spendable_amount))
 
                 # Checks if customer has balance
                 if (maximum_spendable_amount >= currentPrice):
 
-                    print("Buyable")
+                    print("{0} has a stock price of {1} : Buyable".format(tick,currentPrice))
+                    
                     # Places order with Alpaca
                     place_order(api,tick, side='buy', qty=1)
 
