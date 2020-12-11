@@ -1,15 +1,24 @@
+#!/usr/bin/env python3 
+
+print("Hello World")
+
 from logic import filter_RSI, get_data_month, place_order, alpaca_connection 
+
+import pickle
 
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-from get_all_tickers import get_tickers as gt
+# from get_all_tickers import get_tickers as gt
 import alpaca_trade_api as tradeapi
+from numpy.lib.npyio import load
 
 import pandas as pd
 import numpy as np
+from yfinance import ticker
 
+print("Imports Successfull")
 
 APCA_API_BASE_URL = "https://paper-api.alpaca.markets"
 
@@ -21,10 +30,17 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 
+print("DB Initiated")
+
 # Get all Tickers
-tickers = gt.get_tickers(NYSE=True, NASDAQ=True, AMEX=True)
+# tickers = list(gt.get_tickers(NYSE=True, NASDAQ=True, AMEX=True))
+f = open('tickers','rb')
+tickers = pickle.load(f)
+# tickers = tickers[:50]
+f.close()
 
 print(tickers)
+
 
 # Get Data for the past 30 days for all tickers
 data = get_data_month(tickers=tickers)
