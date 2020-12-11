@@ -97,11 +97,13 @@ class _DashboardState extends State<Dashboard> {
     List<FlSpot> graphData = [];
 
     List percentDifferences = [];
-
     for (int i = 1; i < data.length; i++) {
-      double percentDiff = (data[i]['value'] - data[i - 1]['value']) /
-          data[i - 1]['value'] *
-          100;
+      double percentDiff =
+          ((data[i]['value'] - data[i - 1]['value']) / data[i - 1]['value']) *
+              100;
+
+      // Sets max percentDiff to 100
+      percentDiff = percentDiff > 100 ? 100 : percentDiff;
 
       percentDifferences.add(percentDiff);
 
