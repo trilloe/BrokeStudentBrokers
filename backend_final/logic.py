@@ -1,7 +1,7 @@
 import alpaca_trade_api as tradeapi
 
 from datetime import datetime, timedelta
-# from get_all_tickers import get_tickers as gt
+from get_all_tickers import get_tickers as gt
 import yfinance as yf
 
 import talib
@@ -9,6 +9,7 @@ import talib
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+
 
 
 # Returns api object connected to alpaca paper trading account

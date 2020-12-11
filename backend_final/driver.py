@@ -1,24 +1,16 @@
-#!/usr/bin/env python3 
-
-print("Hello World")
-
 from logic import filter_RSI, get_data_month, place_order, alpaca_connection 
-
-import pickle
 
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-# from get_all_tickers import get_tickers as gt
+from get_all_tickers import get_tickers as gt
 import alpaca_trade_api as tradeapi
-from numpy.lib.npyio import load
 
 import pandas as pd
 import numpy as np
-from yfinance import ticker
 
-print("Imports Successfull")
+import logging
 
 APCA_API_BASE_URL = "https://paper-api.alpaca.markets"
 
@@ -30,17 +22,10 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 
-print("DB Initiated")
-
 # Get all Tickers
-# tickers = list(gt.get_tickers(NYSE=True, NASDAQ=True, AMEX=True))
-f = open('tickers','rb')
-tickers = pickle.load(f)
-tickers = tickers[:50]
-f.close()
+tickers = gt.get_tickers(NYSE=True, NASDAQ=True, AMEX=True)
 
 print(tickers)
-
 
 # Get Data for the past 30 days for all tickers
 data = get_data_month(tickers=tickers)
@@ -69,6 +54,7 @@ to_buy, to_sell = filter_RSI(tickers=tickers, data=data)
 
 print(to_buy)
 print(to_sell)
+logging.log
 
 
 # Running Script for Every User in the Database
@@ -142,7 +128,7 @@ for user in user_references:
 
             orders = api.list_orders( 
                 status='all',
-                limit=100,
+                limit=3,
                 nested=True  # show nested multi-leg orders
             )
 
