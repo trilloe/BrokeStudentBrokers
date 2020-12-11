@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
             bottomAppBarColor: Color(0xFF202020)),
         themeMode: ThemeMode.dark,
         home: Wrapper(),
+        debugShowCheckedModeBanner: false,
       ),
     );
   }
