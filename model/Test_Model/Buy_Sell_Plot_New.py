@@ -102,14 +102,10 @@ while iteratorPos < assetListLen:
     for i in RSI.index:
         if RSI[i] != np.NaN:
             if RSI[i] < lower:
-                if flag != 1:
-                    buy.append(closeList[i])
-                    sell.append(np.NaN)
-                    flag = 1
-                    money_spent.append(closeList[i])
-                else:
-                    buy.append(np.NaN)
-                    sell.append(np.NaN)
+                buy.append(closeList[i])
+                sell.append(np.NaN)
+                flag = 1
+                money_spent.append(closeList[i])
             elif RSI[i] > upper:
                 if flag != 0 and flag != -1:
                     sell.append(closeList[i])

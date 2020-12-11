@@ -40,7 +40,8 @@ assetListLen = len(assetsToDownload)
 
 
 # symbol =  gt.get_biggest_n_tickers(200)[100:180] #['AMZN','FB','TSLA','MSFT','AAPL', 'GOOG']
-symbol = gt.get_tickers()
+# symbol = gt.get_tickers()
+symbol = ['AMZN','FB',"TSLA","MSFT",'AAPL']
 
 
 # returned_data = pd.DataFrame
@@ -53,12 +54,12 @@ symbol = gt.get_tickers()
 
 # returned_data = api.get_barset(symbol,barTimeframe,start=startDate)
 
-# returned_data = yf.download(tickers=symbol, period='max', interval='1d', group_by='ticker')
+returned_data = yf.download(tickers=symbol, period='max', interval='1d', group_by='ticker')
 
 store = pd.HDFStore('store.h5')
-# store['returned_data'] = returned_data
+store['returned_data'] = returned_data
 returned_data = store['returned_data']
-print(returned_data.iloc[-1:-300:-1])
+# print(returned_data.iloc[-1:-300:-1])
 
 
 tot_returns = [0,0,0,0,0,0,0,0,0,0,0]
@@ -101,7 +102,7 @@ colors = random_color(len(symbol)) #{'AMZN':'black','FB':'blue','TSLA':'red','MS
 
 
 
-for s in symbol[500:520]:
+for s in symbol:
 	closeList = returned_data[(s,  'Close')]
 
 	price = closeList[-1]
@@ -247,7 +248,10 @@ for s in symbol[500:520]:
 	plt.legend(loc='center left', bbox_to_anchor=(1.0,0.5))
 
 #Replace 20 with Len(Symbols)
-tot_returns = [i/20 for i in tot_returns]
+tot_returns = [i/len(symbol) for i in tot_returns]
+
+print(tot_returns)
+print(global_x)
 
 plt.plot(global_x,tot_returns,label="Total Returns", color="orange")
 plt.axhline(0, color='black')
