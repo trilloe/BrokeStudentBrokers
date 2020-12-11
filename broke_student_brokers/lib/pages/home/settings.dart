@@ -125,7 +125,7 @@ class _SettingState extends State<Setting> {
                                   width: 120,
                                   height: 120,
                                   child: Image.network(
-                                    "https://i.pinimg.com/236x/a9/26/69/a926693a2583911df130247809c1c1db.jpg",
+                                    "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX25634105.jpg",
                                     fit: BoxFit.fill,
                                   ),
                                 ),
@@ -139,7 +139,7 @@ class _SettingState extends State<Setting> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.only(top: 20),
+                                    padding: EdgeInsets.only(top: 0),
                                     child: Text(
                                       // 'Shaurya Srivastava',
                                       // _authUser.currentUser.email
